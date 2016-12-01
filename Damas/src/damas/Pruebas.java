@@ -19,7 +19,6 @@ public class Pruebas {
         t.moverFicha(5, 6, t.getDiagonal(true, false, true, 'n', 5, 6).x(), t.getDiagonal(true, false, true, 'n', 5, 6).y());
         
         t.moverFicha(3, 4, 4, 5);
-        t.setPosicion(2,3,'b');
         t.setPosicion(4,5,'B');
         
         System.out.println(t.toString());
