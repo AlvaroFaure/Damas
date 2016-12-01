@@ -12,7 +12,7 @@ package damas;
 public class Tablero {
 
     private char[][] tablero;
-    private boolean turno;
+    private boolean turno; //B=true N=false
     
     
     //CONSTRUCTORES
@@ -59,9 +59,125 @@ public class Tablero {
     /**
      * Cambia las posiciones de dos fichas
      */
-    public void alternaPosiciones(int x1,int y1, int x2, int y2){
-        tablero[x2][y2]=tablero[x1][y1];
-        tablero[x1][y1]='X';
+    public void moverFicha(int x1,int y1, int x2, int y2){
+        
+        char aux = tablero[x2][y2];
+        
+        if(x2==0 && tablero[x1][x2]=='n'){
+            tablero[x2][y2]='N';
+        }else if(x2==7 && tablero[x1][x2]=='b'){
+            tablero[x2][y2]='B';
+        }else{
+            tablero[x2][y2]=tablero[x1][y1];
+        }
+       
+        tablero[x1][y1]=aux;
+      
+    }
+    
+    
+    public boolean valida(int x, int y){
+        return x>=0 && y>=0 && x<8 && y<8;
+    }
+    
+    public boolean correcta(char ficha, int x, int y){
+        return valida(x,y) && tablero[x][y]=='X';
+    }
+    
+    public boolean prohibida(int x, int y){
+        return (x%2==0 && y%2==0) || (x%2!=0 && y%2!=0);
+    }
+    
+    public boolean comerIzquierdaDelante(char ficha, int x, int y){
+        Coordenada n = getDiagonal(true,false,true,ficha,x,y);
+        Coordenada d = getDiagonal(true,true,true,ficha,x,y);
+        return valida(n.x(),n.y()) && valida(d.x(),d.y()) && fichaContraria(ficha,n.x(),n.y()) && tablero[d.x()][d.y()]=='X';
+    }
+    
+    public boolean comerDerechaDelante(char ficha, int x, int y){
+        Coordenada n = getDiagonal(false,false,true,ficha,x,y);
+        Coordenada d = getDiagonal(false,true,true,ficha,x,y);
+        return valida(n.x(),n.y()) && valida(d.x(),d.y()) && fichaContraria(ficha,n.x(),n.y()) && tablero[d.x()][d.y()]=='X';
+    }
+    
+    public boolean comerIzquierdaDetras(char ficha, int x, int y){
+        Coordenada n = getDiagonal(true,false,false,ficha,x,y);
+        Coordenada d = getDiagonal(true,true,false,ficha,x,y);
+        return valida(n.x(),n.y()) && valida(d.x(),d.y()) && fichaContraria(ficha,n.x(),n.y()) && tablero[d.x()][d.y()]=='X';
+    }
+    
+    public boolean comerDerechaDetras(char ficha, int x, int y){
+        Coordenada n = getDiagonal(false,false,false,ficha,x,y);
+        Coordenada d = getDiagonal(false,true,false,ficha,x,y);
+        return valida(n.x(),n.y()) && valida(d.x(),d.y()) && fichaContraria(ficha,n.x(),n.y()) && tablero[d.x()][d.y()]=='X';
+    }
+    
+    public boolean fichaContraria(char ficha, int x, int y){
+        return tablero[x][y]!='X' && tablero[x][y]!=Character.toLowerCase(ficha) && tablero[x][y]!=Character.toUpperCase(ficha);
+    }
+    
+    public Coordenada getDiagonal(boolean izquierda, boolean doble, boolean delante, char ficha, int x, int y){
+        if(delante){
+            if(izquierda){
+                if(doble){
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x+2,y+2);
+                    }else{
+                        return new Coordenada(x-2,y-2);
+                    }
+                }else{
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x+1,y+1);
+                    }else{
+                        return new Coordenada(x-1,y-1);
+                    }
+                }
+            }else{
+               if(doble){
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x+2,y-2);
+                    }else{
+                        return new Coordenada(x-2,y+2);
+                    }
+                }else{
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x+1,y-1);
+                    }else{
+                        return new Coordenada(x-1,y+1);
+                    }
+                } 
+            }
+        }else{
+           if(izquierda){
+                if(doble){
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x-2,y+2);
+                    }else{
+                        return new Coordenada(x+2,y-2);
+                    }
+                }else{
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x-1,y+1);
+                    }else{
+                        return new Coordenada(x+1,y-1);
+                    }
+                }
+            }else{
+               if(doble){
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x-2,y-2);
+                    }else{
+                        return new Coordenada(x+2,y+2);
+                    }
+                }else{
+                    if(Character.toLowerCase(ficha)=='b'){
+                        return new Coordenada(x-1,y-1);
+                    }else{
+                        return new Coordenada(x+1,y+1);
+                    }
+                } 
+            } 
+        }
     }
     
     //////////////////////////////////////////////////////
@@ -134,7 +250,7 @@ public class Tablero {
     /**
      * @param turno Cambiamos el valor de la ficha
      */
-    public void setFicha(Boolean turno) {
+    public void setTurno(Boolean turno) {
         this.turno = turno;
     }
     
