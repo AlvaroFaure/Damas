@@ -63,9 +63,9 @@ public class Tablero {
         
         char aux = tablero[x2][y2];
         
-        if(x2==0 && tablero[x1][x2]=='n'){
+        if(x2==0 && tablero[x1][y1]=='n'){
             tablero[x2][y2]='N';
-        }else if(x2==7 && tablero[x1][x2]=='b'){
+        }else if(x2==7 && tablero[x1][y1]=='b'){
             tablero[x2][y2]='B';
         }else{
             tablero[x2][y2]=tablero[x1][y1];
@@ -178,6 +178,11 @@ public class Tablero {
                 } 
             } 
         }
+    }
+    
+    public void mover(boolean izquierda, boolean doble, boolean delante, int x, int y){
+        Coordenada c = getDiagonal(izquierda,doble,delante,tablero[x][y],x,y);
+        this.moverFicha(x, y, c.x(), c.y());
     }
     
     //////////////////////////////////////////////////////

@@ -24,5 +24,8 @@ public class Pruebas {
         System.out.println(t.toString());
        
         System.out.println(Damas.getPosiblesPosiciones(t, 4, 5));
+        
+        t.mover(false,false,false,4,5);
+        System.out.println(t.toString());
     }     
 }
