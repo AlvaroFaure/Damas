@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Pruebas {
     
     public static void main(String[] args){
+        /*
         char[][] tab =  new char[][] {
                                 {'X','X','X','X','X','b','X','b'},
                                 {'b','X','X','X','X','X','X','X'},
@@ -27,6 +28,9 @@ public class Pruebas {
                             };
         
         Tablero t = new Tablero(tab,false);
+        */
+        
+        Tablero t = new Tablero();
         System.out.println(t.toStringPruebas());
         System.out.println("---------------\n");
 
@@ -36,11 +40,10 @@ public class Pruebas {
         int x;
         int y;
         
-        System.out.println("¿Qué ficha quieres mover?");
-        linea = sc.nextLine();
-        
         do{
             do{
+                System.out.println("¿Qué ficha quieres mover?");
+                linea = sc.nextLine();
 
                 Scanner sc2 = new Scanner(linea);
                 sc2.useDelimiter(",");
@@ -70,10 +73,6 @@ public class Pruebas {
             }while(t.juegaBlanca());
             
             sc2.close();
-            
-            
-            System.out.println("¿Qué ficha quieres mover?");
-            linea = sc.nextLine();
         }while(!linea.equals("f"));
         
         sc.close();
