@@ -5,6 +5,9 @@
  */
 package damas;
 
+import java.util.List;
+import java.util.Scanner;
+
 /**
  *
  * @author Álvaro
@@ -12,20 +15,67 @@ package damas;
 public class Pruebas {
     
     public static void main(String[] args){
-        Tablero t = new Tablero();
-        System.out.println(t.toString());
+        char[][] tab =  new char[][] {
+                                {'X','X','X','X','X','b','X','b'},
+                                {'b','X','X','X','X','X','X','X'},
+                                {'X','X','X','X','X','b','X','b'},
+                                {'b','X','X','X','X','X','X','X'},
+                                {'X','X','X','X','X','n','X','X'},
+                                {'X','X','X','X','n','X','X','X'},
+                                {'X','X','X','n','X','n','X','X'},
+                                {'X','X','B','X','n','X','n','X'}
+                            };
         
-        t.moverFicha(2, 3, t.getDiagonal(true, false, true, 'b', 2, 3).x(), t.getDiagonal(true, false, true, 'b', 2, 3).y());
-        t.moverFicha(5, 6, t.getDiagonal(true, false, true, 'n', 5, 6).x(), t.getDiagonal(true, false, true, 'n', 5, 6).y());
+        Tablero t = new Tablero(tab,false);
+        System.out.println(t.toStringPruebas());
+        System.out.println("---------------\n");
+
+        Scanner sc = new Scanner(System.in);
+        String linea = "";
         
-        t.moverFicha(3, 4, 4, 5);
-        t.setPosicion(4,5,'B');
+        int x;
+        int y;
         
-        System.out.println(t.toString());
-       
-        System.out.println(Damas.getPosiblesPosiciones(t, 4, 5));
+        System.out.println("¿Qué ficha quieres mover?");
+        linea = sc.nextLine();
         
-        t.mover(false,false,false,4,5);
-        System.out.println(t.toString());
+        do{
+            do{
+
+                Scanner sc2 = new Scanner(linea);
+                sc2.useDelimiter(",");
+
+                x = sc2.nextInt();
+                y = sc2.nextInt();
+                List<Coordenada> p = Damas.getPosiblesPosiciones(t,x,y,null);
+
+                System.out.println("Puedes mover esa ficha a las siguientes posiciones: ");
+                System.out.println(p);
+                System.out.print("Escoge una: ");
+
+                linea = sc.nextLine();
+            }while(linea.equals("c"));
+            
+            Scanner sc2 = new Scanner(linea);
+            sc2.useDelimiter(",");
+            
+            t= Damas.mueveJugador(t,x, y, sc2.nextInt(), sc2.nextInt());
+            System.out.println(t.toStringPruebas());
+            System.out.println("---------------\n");
+            
+            do{
+                t = Damas.mueveMaquina(t,'b');
+                System.out.println(t.toStringPruebas());
+                System.out.println("---------------\n");
+            }while(t.juegaBlanca());
+            
+            sc2.close();
+            
+            
+            System.out.println("¿Qué ficha quieres mover?");
+            linea = sc.nextLine();
+        }while(!linea.equals("f"));
+        
+        sc.close();
     }     
 }

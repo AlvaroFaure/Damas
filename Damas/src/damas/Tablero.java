@@ -13,24 +13,40 @@ public class Tablero {
 
     private char[][] tablero;
     private boolean turno; //B=true N=false
+    private boolean restringido;
+    private Coordenada fichaRestringida;
+    private boolean comido;
     
     
     //CONSTRUCTORES
     
     public Tablero(){
        tablero = creaTablero();
-       turno=true;
+       turno=false;
+       restringido=false;
+       fichaRestringida=null;
     }
     
     public Tablero(boolean juega){
        tablero = creaTablero();
        this.turno=juega;
+       restringido=false;
+       fichaRestringida=null;
     }
     
     
     public Tablero(char[][] tablero, boolean juega){
        this.tablero = tablero;
        this.turno=juega;
+       restringido=false;
+       fichaRestringida=null;
+    }
+    
+    public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha){
+       this.tablero = tablero;
+       this.turno=juega;
+       restringido=restr;
+       fichaRestringida=ficha;
     }
     
     
@@ -69,6 +85,13 @@ public class Tablero {
             tablero[x2][y2]='B';
         }else{
             tablero[x2][y2]=tablero[x1][y1];
+        }
+        
+        if(Math.abs(Math.abs(x1)-Math.abs(x2))==2){
+            tablero[(x1+x2)/2][(y1+y2)/2]='X';
+            comido=true;
+        }else{
+            comido=false;
         }
        
         tablero[x1][y1]=aux;
@@ -185,6 +208,7 @@ public class Tablero {
         this.moverFicha(x, y, c.x(), c.y());
     }
     
+    
     //////////////////////////////////////////////////////
     
     /**
@@ -221,6 +245,28 @@ public class Tablero {
             sb.append("\n");
         }
         
+        return sb.toString();
+    }
+    
+    
+    public String toStringPruebas(){
+        StringBuilder sb  = new StringBuilder();
+        sb.append("  0 1 2 3 4 5 6 7\n");
+        for(int i=0; i<tablero.length;i++){
+            sb.append(i+" ");
+            for(int j=0; j<tablero[0].length;j++){
+                if(tablero[i][j]=='X'){
+                    sb.append("· ");
+                }else{
+                    sb.append(tablero[i][j]+" ");
+                }
+            }
+            sb.append("\n");
+        }
+        
+        String st = turno ? "máquina" : "jugador";
+        sb.append("Turno de "+st+"\n");
+        sb.append("Restringido: "+restringido+". Puedes mover "+fichaRestringida+"\n");
         return sb.toString();
     }
     
@@ -287,5 +333,48 @@ public class Tablero {
      */
     public boolean juegaNegra() {
         return !turno;
+    }
+    
+    public boolean esRestringido(){
+        return restringido;
+    }
+    
+    public void setRestringido(boolean r){
+        restringido=r;
+    }
+    
+    public Coordenada getFichaRestringida(){
+        return fichaRestringida;
+    }
+    
+    public void setFichaRestringida(Coordenada fich){
+        fichaRestringida=fich;
+    }
+    
+    public int getDimension(){
+        return tablero.length;
+    }
+    
+    public boolean heComido(){
+        return comido;
+    }
+    
+    public static Tablero clona(Tablero t){
+        char[][] tab = new char[8][8];
+        
+        for(int i=0; i<t.getDimension(); i++){
+            for(int j=0; j<t.getDimension(); j++){
+                tab[i][j]=t.getPosicion(i, j);
+            }
+        }
+        
+        Coordenada c;
+        if(t.getFichaRestringida()==null){
+            c=null;
+        }else{
+            c=new Coordenada(t.getFichaRestringida());
+        }
+        
+        return new Tablero(tab,t.getTurno(),t.esRestringido(),c);
     }
 }

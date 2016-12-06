@@ -18,6 +18,11 @@ public class Coordenada {
         x=0; y=0;
     }
     
+    public Coordenada(Coordenada cord){
+        x=cord.x();
+        y=cord.y();
+    }
+    
     public Coordenada(int x1, int y1){
         x=x1; y=y1;
     }
