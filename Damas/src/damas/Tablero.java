@@ -5,6 +5,10 @@
  */
 package damas;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
@@ -16,6 +20,7 @@ public class Tablero {
     private boolean restringido;
     private Coordenada fichaRestringida;
     private boolean comido;
+    private int[] reinas; //[B,N]
     
     
     //CONSTRUCTORES
@@ -25,6 +30,7 @@ public class Tablero {
        turno=false;
        restringido=false;
        fichaRestringida=null;
+       reinas=new int[2];
     }
     
     public Tablero(boolean juega){
@@ -32,6 +38,7 @@ public class Tablero {
        this.turno=juega;
        restringido=false;
        fichaRestringida=null;
+       reinas=new int[2];
     }
     
     
@@ -40,6 +47,8 @@ public class Tablero {
        this.turno=juega;
        restringido=false;
        fichaRestringida=null;
+       reinas=new int[2];
+       cuentaReinas();
     }
     
     public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha){
@@ -47,6 +56,50 @@ public class Tablero {
        this.turno=juega;
        restringido=restr;
        fichaRestringida=ficha;
+       cuentaReinas();
+    }
+    
+    public Tablero(String fich){
+        File f = new File(fich);
+        tablero = creaTablero();
+        int x =0; int y = 0;
+        
+        try{
+            Scanner sc = new Scanner(f);
+            String linea = sc.nextLine();
+            
+            Scanner scinfo = new Scanner(linea);
+            scinfo.useDelimiter(",");
+            
+            turno = scinfo.nextBoolean();
+            restringido = scinfo.nextBoolean();
+            fichaRestringida=null;
+            
+            
+            if(restringido){
+                fichaRestringida = new Coordenada(scinfo.nextInt(),scinfo.nextInt());
+            }
+            
+            scinfo.close();
+            
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                Scanner sc2 = new Scanner(linea);
+                sc2.useDelimiter(" ");
+                while(sc2.hasNext()){
+                    tablero[x][y]=sc2.next().charAt(0);
+                    y++;
+                }
+                System.out.println("");
+                x++; y=0;
+                sc2.close();
+            }
+            
+            sc.close();
+            cuentaReinas();
+        }catch(FileNotFoundException ex){
+            System.out.println("Fichero no encontrado");
+        }
     }
     
     
@@ -95,7 +148,7 @@ public class Tablero {
         }
        
         tablero[x1][y1]=aux;
-      
+        cuentaReinas();
     }
     
     
@@ -227,6 +280,19 @@ public class Tablero {
                             };
     }
     
+    public void cuentaReinas(){
+        reinas = new int[2];
+        for(int i=0; i<getDimension(); i++){
+            for(int j=0; j<getDimension(); j++){
+                if(tablero[i][j]=='B'){
+                    reinas[0]++;
+                }
+                if(tablero[i][j]=='N'){
+                    reinas[1]++;
+                }
+            }
+        }
+    }
     
     /**
      * @return Devuelve la representación del tablero como cadena de texto
@@ -274,18 +340,19 @@ public class Tablero {
     /**
      * @return Un array con las puntuaciones de cada uno {B,N}
      */
-    public int[] cuentaPuntos(){
-        int[] puntos = new int[]{0,0};
+    public int[] cuentaFichas(){
+        int[] fichas = new int[2];
         for(int i=0; i<tablero.length;i++){
             for(int j=0; j<tablero[0].length;j++){
-                if(tablero[i][j]=='B'){
-                    puntos[0]++;
-                }else if(tablero[i][j]=='N'){
-                    puntos[1]++;
+                if(Character.toUpperCase(tablero[i][j])=='B'){
+                    fichas[0]++;
+                }
+                if(Character.toUpperCase(tablero[i][j])=='N'){
+                    fichas[1]++;
                 }
             }
         }
-        return puntos;
+        return fichas;
     }
     
     //SETTERS, GETTERS Y DERIVADOS
@@ -351,12 +418,33 @@ public class Tablero {
         fichaRestringida=fich;
     }
     
+    public int[] getReinas(){
+        return reinas;
+    }
+    
+    public void setReinas(int[] r){
+        reinas=r;
+    }
+    
     public int getDimension(){
         return tablero.length;
     }
     
     public boolean heComido(){
         return comido;
+    }
+    
+    public static char getContraria(char f){
+        switch (f) {
+            case 'b':
+                return 'n';
+            case 'n':
+                return 'b';
+            case 'N':
+                return 'B';
+            default:
+                return 'N';
+        }
     }
     
     public static Tablero clona(Tablero t){

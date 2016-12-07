@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Pruebas {
     
     public static void main(String[] args){
-        /*
+        
         char[][] tab =  new char[][] {
                                 {'X','X','X','X','X','b','X','b'},
                                 {'b','X','X','X','X','X','X','X'},
@@ -27,54 +27,90 @@ public class Pruebas {
                                 {'X','X','B','X','n','X','n','X'}
                             };
         
-        Tablero t = new Tablero(tab,false);
-        */
         
-        Tablero t = new Tablero();
+        Tablero t = new Tablero("fichero.txt");
+        //Tablero t = new Tablero(tab,false);
+        //Tablero t = new Tablero();
+        
+        DamasAgresivo dm = new DamasAgresivo();
+        
+        
         System.out.println(t.toStringPruebas());
         System.out.println("---------------\n");
-
-        Scanner sc = new Scanner(System.in);
+        
         String linea = "";
+        Scanner scFicha = new Scanner(System.in);
+        int x=0;
+        int y=0;
+        List<Coordenada> posiciones;
         
-        int x;
-        int y;
-        
-        do{
-            do{
+        while(!linea.equals("f")){
+
+            linea="c";
+            
+            while(linea.equals("c")){
                 System.out.println("¿Qué ficha quieres mover?");
-                linea = sc.nextLine();
+                linea = scFicha.nextLine();
+                
+                if(linea.equals("f")){
+                    break;
+                }
 
-                Scanner sc2 = new Scanner(linea);
-                sc2.useDelimiter(",");
+                Scanner scTrocea = new Scanner(linea);
+                scTrocea.useDelimiter(",");
 
-                x = sc2.nextInt();
-                y = sc2.nextInt();
-                List<Coordenada> p = Damas.getPosiblesPosiciones(t,x,y,null);
+                x = scTrocea.nextInt();
+                y = scTrocea.nextInt();
 
+                posiciones = dm.getPosiblesPosiciones(t,x,y,null);
                 System.out.println("Puedes mover esa ficha a las siguientes posiciones: ");
-                System.out.println(p);
+                System.out.println(posiciones);
                 System.out.print("Escoge una: ");
-
-                linea = sc.nextLine();
-            }while(linea.equals("c"));
+                linea = scFicha.nextLine();
+                System.out.println("");
+                scTrocea.close();
+            }
             
-            Scanner sc2 = new Scanner(linea);
-            sc2.useDelimiter(",");
+            Scanner scTrocea = new Scanner(linea);
+            scTrocea.useDelimiter(",");
             
-            t= Damas.mueveJugador(t,x, y, sc2.nextInt(), sc2.nextInt());
+            t= dm.mueveJugador(t,x, y, scTrocea.nextInt(), scTrocea.nextInt());
             System.out.println(t.toStringPruebas());
             System.out.println("---------------\n");
             
-            do{
-                t = Damas.mueveMaquina(t,'b');
+            scTrocea.close();
+            
+            while(t.juegaNegra()){
+                System.out.println("Sigue jugando. ¿A dónde quieres mover la ficha "+t.getFichaRestringida()+"?");
+                posiciones = dm.getPosiblesPosiciones(t,t.getFichaRestringida().x(),t.getFichaRestringida().y(),true);
+                System.out.println(posiciones);
+                System.out.print("Escoge una: ");
+                
+                linea = scFicha.nextLine();
+                System.out.println("");
+                
+                scTrocea = new Scanner(linea);
+                scTrocea.useDelimiter(",");
+
+                t= dm.mueveJugador(t,t.getFichaRestringida().x(), t.getFichaRestringida().y(), scTrocea.nextInt(), scTrocea.nextInt());
                 System.out.println(t.toStringPruebas());
                 System.out.println("---------------\n");
-            }while(t.juegaBlanca());
+                
+                scTrocea.close();
+            }
             
-            sc2.close();
-        }while(!linea.equals("f"));
-        
-        sc.close();
-    }     
+            do{
+                scFicha.nextLine();
+                t = dm.mueveMaquina(t,'b');
+                System.out.println(t.toStringPruebas());
+                System.out.println("---------------\n");
+                
+            }while(t.juegaBlanca());
+
+            System.out.println("Número de reinas en el tablero: "+t.getReinas()[0]+" - "+ t.getReinas()[1]);
+        }
+       
+        scFicha.close();
+    }
+    
 }

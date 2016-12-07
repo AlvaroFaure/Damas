@@ -13,16 +13,11 @@ import java.util.Random;
  *
  * @author inftel02
  */
-public class Damas {
+public abstract class Damas {
     
-    public static Tablero mueveMaquina(Tablero t, char ficha){
-        List<Tablero> tableros = generaPosiblesTableros(t,ficha);
-        Random rnd = new Random();
-        
-        return tableros.get(rnd.nextInt(tableros.size()));
-    }
+    public abstract Tablero mueveMaquina(Tablero t, char ficha);
     
-    public static Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
+    public Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
         Tablero tab = Tablero.clona(t);
         tab.moverFicha(x,y,x2,y2);
 
@@ -39,7 +34,7 @@ public class Damas {
         return tab;
     }
     
-    private static List<Tablero> generaPosiblesTableros(Tablero t, char ficha){
+    protected List<Tablero> generaPosiblesTableros(Tablero t, char ficha){
         List<Tablero> tableros = new ArrayList<>();
         boolean comer = puedoComer(t,ficha);
         //System.out.println("Soy "+ficha+" y comer: "+comer);
@@ -61,7 +56,7 @@ public class Damas {
         return tableros;
     }
     
-    private static List<Tablero> generaTableros(List<Coordenada> posiciones, int x, int y, Tablero t){
+    private List<Tablero> generaTableros(List<Coordenada> posiciones, int x, int y, Tablero t){
         List<Tablero> tableros = new ArrayList<>();
         
         for(Coordenada c : posiciones){
@@ -84,7 +79,7 @@ public class Damas {
         return tableros;
     }
     
-    public static List<Coordenada> getPosiblesPosiciones(Tablero t, int x, int y, Boolean comer){
+    public List<Coordenada> getPosiblesPosiciones(Tablero t, int x, int y, Boolean comer){
         char ficha = t.getPosicion(x, y);
         
         if(comer==null){
@@ -112,7 +107,7 @@ public class Damas {
         }
     }
     
-    private static List<Coordenada> comerFicha(Tablero t, char ficha, int x, int y){
+    private List<Coordenada> comerFicha(Tablero t, char ficha, int x, int y){
         List<Coordenada> posiciones = new ArrayList<>();
         
         if(t.comerIzquierdaDelante(ficha, x, y)){
@@ -141,7 +136,7 @@ public class Damas {
     }
     
     
-    private static List<Coordenada> mover(Tablero t, char ficha, int x, int y){
+    private List<Coordenada> mover(Tablero t, char ficha, int x, int y){
         List<Coordenada> posiciones = new ArrayList<>();
         
         Coordenada moverIzq = t.getDiagonal(true, false, true, ficha, x, y);
@@ -172,7 +167,7 @@ public class Damas {
         return posiciones;
     }
     
-    private static boolean puedoComer(Tablero t, char ficha){
+    protected boolean puedoComer(Tablero t, char ficha){
         boolean comer = false;
         
         for(int i=0; i<t.getDimension(); i++){

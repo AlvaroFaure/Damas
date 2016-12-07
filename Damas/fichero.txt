@@ -1,0 +1,9 @@
+false,false
+X X X X X X X X 
+X X X X X X b X 
+X n X X X X X b 
+n X N X b X X X 
+X X X X X X X n 
+n X X X n X X X 
+X X X X X X X X 
+X X X X n X B X 
