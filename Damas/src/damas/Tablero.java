@@ -39,14 +39,14 @@ public class Tablero {
        movimientos=0;
     }
 
-    public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha){
+    public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha, int m, int r){
        this.tablero = tablero;
        this.turno=juega;
        restringido=restr;
        fichaRestringida=ficha;
        cuentaReinas();
-       reinasTotales=0;
-       movimientos=0;
+       reinasTotales=r;
+       movimientos=m;
     }
     
     public Tablero(String fich) throws FileNotFoundException{
@@ -459,7 +459,7 @@ public class Tablero {
             c=new Coordenada(t.getFichaRestringida());
         }
         
-        return new Tablero(tab,t.getTurno(),t.esRestringido(),c);
+        return new Tablero(tab,t.getTurno(),t.esRestringido(),c,t.getMovimientos(),t.getReinasTotales());
     }
     
     public void guardaTablero(String fich, String nom, Damas modo) throws FileNotFoundException{

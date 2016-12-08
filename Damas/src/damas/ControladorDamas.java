@@ -223,6 +223,7 @@ public class ControladorDamas implements ActionListener{
         
         try {
             modelo.BBDD(nombreUsuario,modelo.getTablero().getMovimientos(),modelo.getTablero().getReinasTotales(),resultado);
+            vista.setTextArea("\n"+modelo.mostrarEstadisticas(nombreUsuario));
         } catch (SQLException | ClassNotFoundException ex) {
             vista.error("ERROR: "+ex.getMessage());
         }
