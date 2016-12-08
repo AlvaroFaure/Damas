@@ -15,4 +15,5 @@ public interface VistaDamas {
     
     void controlador(ActionListener ctr);
     
+    void pintaTablero(Tablero t);
 }

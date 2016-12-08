@@ -59,10 +59,12 @@ public class PanelDamas extends JPanel implements VistaDamas {
         //PANEL SECUNDARIO: CENTRO
         JPanel panelTablero = new JPanel();
         panelTablero.setLayout(new GridLayout(8,8));
-        Insets buttonMargin = new Insets(0,0,0,0);
-        ImageIcon negro = new ImageIcon("negro.jpeg");
-        ImageIcon blanco = new ImageIcon("blanco.jpeg");
+        
+        
         int cont =0;
+        Insets buttonMargin = new Insets(0,0,0,0);
+        ImageIcon blanco = new ImageIcon("blanco.jpeg");
+        ImageIcon negro = new ImageIcon("negro.jpeg");
         
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
@@ -151,7 +153,45 @@ public class PanelDamas extends JPanel implements VistaDamas {
     }
 
     public void controlador(ActionListener ctr) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        comenzarJB.addActionListener(ctr);
+        comenzarJB.setActionCommand("COMENZAR");
     }
+    
+    public void pintaTablero(Tablero t){
+        ImageIcon imagen;
+        
+        for(int i=0; i<t.getDimension(); i++){
+            for(int j=0; j<t.getDimension(); j++){
+                
+                if(t.getPosicion(i,j)=='X'){
+                    if(t.prohibida(i, j)){
+                        imagen = new ImageIcon("blanco.jpeg");
+                        tablero[i][j].setIcon(imagen);
+                    }else{
+                        imagen = new ImageIcon("negro.jpeg");
+                        tablero[i][j].setIcon(imagen);
+                    }
+                }else if(t.getPosicion(i,j)=='b'){
+                    imagen = new ImageIcon("blancaD.jpeg");
+                    tablero[i][j].setIcon(imagen);
+                }else if(t.getPosicion(i,j)=='B'){
+                    imagen = new ImageIcon("blancaR.jpeg");
+                    tablero[i][j].setIcon(imagen);
+                }else if(t.getPosicion(i,j)=='n'){
+                    imagen = new ImageIcon("negraD.jpeg");
+                    tablero[i][j].setIcon(imagen);
+                }else{
+                    imagen = new ImageIcon("negraR.jpeg");
+                    tablero[i][j].setIcon(imagen);
+                }
+                
+                
+                
+            }
+        }
+        
+        
+    }
+    
     
 }

@@ -23,7 +23,13 @@ public class ControladorDamas implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String comando = e.getActionCommand();
+
+        switch(comando){
+            case "COMENZAR":
+                vista.pintaTablero(new Tablero());
+                break;
+        }
     }
     
 }
