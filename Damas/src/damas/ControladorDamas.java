@@ -8,7 +8,10 @@ package damas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -155,23 +158,15 @@ public class ControladorDamas implements ActionListener{
                 break;
             case "SIGUIENTE":
                 if(modelo.getTablero().juegaBlanca()){
-                    if(modelo.mueveMaquina(modelo.getTablero(), 'b')==null){
-                        terminada=true;
-                        ficha=false;
-                        posicion=false;
-                        vista.habilitarSiguiente(false);
-                        vista.mensaje("No puedes realizar movimientos. La partida ha terminado. Carga una o empieza una nueva");
-                        vista.setTextArea("\n¡Enhorabuena/Lo sentimos! ¡Has ...!");
+                    Tablero t = modelo.mueveMaquina(modelo.getTablero(), 'b');
+                    if(t==null){
+                        termina();
                     }else{
+                        modelo.setTablero(t);
                         vista.setTextArea("Tu contrincante a respondido a tu movimiento\n");
+                        vista.pintaTablero(modelo.getTablero());
                         if(!modelo.hayMovimientos(modelo.getTablero(),'n')){
-                            vista.pintaTablero(modelo.getTablero());
-                            terminada=true;
-                            vista.habilitarSiguiente(false);
-                            posicion=false;
-                            ficha=false;
-                            vista.mensaje("No puedes realizar movimientos. La partida ha terminado. Carga una o empieza una nueva");
-                            vista.setTextArea("\n¡Enhorabuena/Lo sentimos! ¡Has ...!");
+                            termina();
                         }else{
                             vista.mensaje("Es tu turno. Selecciona una ficha para mover");
                             if(modelo.getTablero().juegaNegra()){
@@ -201,5 +196,35 @@ public class ControladorDamas implements ActionListener{
         ficheroGuardar=null;
         vista.habilitarSiguiente(false);
         vista.resetea();
+    }
+    
+    public void termina(){
+        terminada=true;
+        ficha=false;
+        posicion=false;
+        vista.habilitarSiguiente(false);
+        
+        int[] puntos = modelo.getTablero().cuentaFichas();
+        String resultado;
+        
+        //puntos[0] = CPU / puntos[1]=Nosotros
+        if(puntos[1]>puntos[0]){
+            vista.setTextArea("\n¡Enhorabuena! ¡Has ganado la partida!\n");
+            resultado="VICTORIA";
+        }else if(puntos[1]==puntos[0]){
+            vista.setTextArea("\n¡La partida ha terminado en empate!\n");
+            resultado="EMPATE";
+        }else{
+            vista.setTextArea("\n¡Oh! ¡Vaya lástima! ¡Has perdido la partida!\n");
+            resultado="DERROTA";
+        }
+        vista.mensaje("No puedes realizar movimientos. La partida ha terminado. Carga una o empieza una nueva");
+        vista.setTextArea("\n  - ESTADÍSTICAS -\n");
+        
+        try {
+            modelo.BBDD(nombreUsuario,modelo.getTablero().getMovimientos(),modelo.getTablero().getReinasTotales(),resultado);
+        } catch (SQLException | ClassNotFoundException ex) {
+            vista.error("ERROR: "+ex.getMessage());
+        }
     }
 }

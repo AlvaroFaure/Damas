@@ -215,16 +215,15 @@ public abstract class Damas {
             return hay;
         }
     }
-    private void BBDD(String nombreJugador, int movimientos, int numeroReinas, String resultado) throws SQLException{
+    
+    public void BBDD(String nombreJugador, int movimientos, int numeroReinas, String resultado) throws SQLException, ClassNotFoundException{
         boolean existe = false;
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-        }catch(ClassNotFoundException e){
-            System.out.println("Error");
-        }
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        
         Connection con = DriverManager.getConnection("jdbc:oracle:thin:inftel16_12/inftel@olimpia.lcc.uma.es:1521:edgar");
         Statement stmt = con.createStatement();
         ResultSet resBaseDatos = stmt.executeQuery("SELECT nombreJugador FROM Jugador");
+        
         while (resBaseDatos.next()) {
             String nombre = resBaseDatos.getString("nombreJugador");
             if (nombre.equals(nombreJugador)){
@@ -238,17 +237,19 @@ public abstract class Damas {
         stmt.executeUpdate("INSERT INTO Partida(jugador_nombreJugador, movimientosTotales, numReinas, resultado, idPartida) VALUES('"+nombreJugador+"', "+movimientos+", "+numeroReinas+", '"+resultado+"', SECUENCIA_ID.NEXTVAL)");
         
     }
-    private String mostrarEstadisticas(String nombreJugador) throws SQLException{
+    
+    public String mostrarEstadisticas(String nombreJugador) throws SQLException{
         boolean existe = false;
-        String salida = "";
-        String nombre = "";
+        String salida;
+        String nombre;
+        
         int movimientos = 0;
         int numeroReinas = 0;
-        String resultadoPartida = "";
         int partida = 0;
         int victoria = 0;
         int empate = 0;
         int derrota = 0;
+        
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
         }catch(ClassNotFoundException e){
@@ -280,10 +281,8 @@ public abstract class Damas {
         }
         if(!existe){
             salida = "No existe el Jugador "+nombreJugador;
-            System.out.println("No existe el jugador: "+nombreJugador);
         }else{
             salida = "JUGADOR: "+nombreJugador+"\n PARTIDAS JUGADAS: "+partida+"\n MOVIMIENTOS: "+movimientos+"\n NUMERO DE REINAS: "+numeroReinas+"\n VICTORIAS: "+victoria+"\n EMPATES: "+empate+"\n DERROTAS: "+derrota;
-            System.out.println(salida);
         }
         return salida;
     }

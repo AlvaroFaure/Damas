@@ -24,6 +24,8 @@ public class Tablero {
     private int[] reinas; //[B,N]
     private String nombre;
     private char modo;
+    private int movimientos;
+    private int reinasTotales;
     
     //CONSTRUCTORES
     
@@ -33,32 +35,18 @@ public class Tablero {
        restringido=false;
        fichaRestringida=null;
        reinas=new int[2];
+       reinasTotales=0;
+       movimientos=0;
     }
-    
-    public Tablero(boolean juega){
-       tablero = creaTablero();
-       this.turno=juega;
-       restringido=false;
-       fichaRestringida=null;
-       reinas=new int[2];
-    }
-    
-    
-    public Tablero(char[][] tablero, boolean juega){
-       this.tablero = tablero;
-       this.turno=juega;
-       restringido=false;
-       fichaRestringida=null;
-       reinas=new int[2];
-       cuentaReinas();
-    }
-    
+
     public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha){
        this.tablero = tablero;
        this.turno=juega;
        restringido=restr;
        fichaRestringida=ficha;
        cuentaReinas();
+       reinasTotales=0;
+       movimientos=0;
     }
     
     public Tablero(String fich) throws FileNotFoundException{
@@ -83,6 +71,8 @@ public class Tablero {
         
         nombre = scinfo.next();
         modo = scinfo.next().charAt(0);
+        movimientos=scinfo.nextInt();
+        reinasTotales=scinfo.nextInt();
 
         scinfo.close();
 
@@ -135,10 +125,15 @@ public class Tablero {
         
         if(x2==0 && tablero[x1][y1]=='n'){
             tablero[x2][y2]='N';
+            reinasTotales++;
         }else if(x2==7 && tablero[x1][y1]=='b'){
             tablero[x2][y2]='B';
         }else{
             tablero[x2][y2]=tablero[x1][y1];
+        }
+        
+        if(tablero[x1][y1]=='n' || tablero[x1][y1]=='N'){
+            movimientos++;
         }
         
         if(Math.abs(Math.abs(x1)-Math.abs(x2))==2){
@@ -477,9 +472,9 @@ public class Tablero {
         pw.print(nom+",");
         
         if(modo.getModo()=='a'){
-            pw.print("a\n");
+            pw.print("a,"+movimientos+","+reinasTotales+"\n");
         }else{
-            pw.print("d\n");
+            pw.print("d,"+movimientos+","+reinasTotales+"\n");
         }
         
         for(int i=0; i<getDimension();i++){
@@ -502,5 +497,13 @@ public class Tablero {
         }else{
             return new DamasDefensivo();
         }
+    }
+    
+    public int getMovimientos(){
+        return movimientos;
+    }
+    
+    public int getReinasTotales(){
+        return reinasTotales;
     }
 }

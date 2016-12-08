@@ -65,8 +65,7 @@ public class DamasDefensivo extends Damas{
 
             Random rnd = new Random();
             
-            tablero=elegidos.get(rnd.nextInt(elegidos.size()));
-            return tablero;
+            return elegidos.get(rnd.nextInt(elegidos.size()));
         }
     }
  
