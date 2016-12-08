@@ -1,9 +1,9 @@
-true,false,Álvaro,a
+true,false,hh,r,3,0
+X b X b X b X b 
+b X b X b X b X 
+X b X X X X X b 
+X X X X n X b X 
 X X X X X X X X 
-n X N X b X n X 
-X N X b X X X n 
-n X n X X X n X 
-X n X X X n X X 
-X X n X X X X X 
-X X X X X N X X 
-X X X X X X X X 
+n X n X X X X X 
+X n X n X n X n 
+n X n X n X n X 

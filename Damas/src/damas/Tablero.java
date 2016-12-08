@@ -473,8 +473,10 @@ public class Tablero {
         
         if(modo.getModo()=='a'){
             pw.print("a,"+movimientos+","+reinasTotales+"\n");
-        }else{
+        }else if(modo.getModo()=='d'){
             pw.print("d,"+movimientos+","+reinasTotales+"\n");
+        }else{
+            pw.print("r,"+movimientos+","+reinasTotales+"\n");
         }
         
         for(int i=0; i<getDimension();i++){
@@ -494,8 +496,10 @@ public class Tablero {
     public Damas getModo(){
         if(modo=='a'){
             return new DamasAgresivo();
-        }else{
+        }else if(modo=='d'){
             return new DamasDefensivo();
+        }else{
+            return new DamasAleatorio();
         }
     }
     

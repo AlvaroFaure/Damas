@@ -35,18 +35,18 @@ public class PanelDamas extends JPanel implements VistaDamas {
     private JButton[][] tablero = new JButton[8][8];
     
     private JLabel nombreJL;
-    private JTextField nombreJTF;
     private JLabel modoJL;
     private ButtonGroup grupo;
     private JRadioButton agresivoJRB;
     private JRadioButton defensivoJRB;
+    private JRadioButton aleatorioJRB;
     private JButton comenzarJB;
     private JButton cargarPartidaJB;
-    private JTextField cargarPartidaJTF;
     private JButton guardarPartidaJB;
-    private JTextField guardarPartidaJTF;
     private JButton cambiarTurnoJB;
-    private JLabel vaciaJL;
+    private JTextField guardarPartidaJTF;
+    private JTextField cargarPartidaJTF;
+    private JTextField nombreJTF;
     
     public PanelDamas(){
         setLayout(new BorderLayout());
@@ -87,14 +87,13 @@ public class PanelDamas extends JPanel implements VistaDamas {
         JPanel panelDerecha = new JPanel();
         panelDerecha.setLayout(new GridLayout(2,1));
         JPanel panelOpciones = new JPanel();
-        panelOpciones.setLayout(new GridLayout(6,2));
+        panelOpciones.setLayout(new GridLayout(5,2));
         
         //Primera fila
         nombreJL = new JLabel("Nombre: ", SwingConstants.CENTER);
         nombreJL.setFont(new Font("Serif", Font.BOLD, 25));
         nombreJL.setOpaque(true);
         nombreJL.setBackground(new Color(209,180,140));
-        nombreJL.setForeground(Color.BLACK);
         nombreJTF = new JTextField();
         nombreJTF.setHorizontalAlignment(JTextField.CENTER);
         nombreJTF.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -103,39 +102,38 @@ public class PanelDamas extends JPanel implements VistaDamas {
         panelOpciones.add(nombreJTF);
         
         //Segunda fila
-        modoJL = new JLabel("   Modo de juego: ", SwingConstants.CENTER);
-        modoJL.setFont(new Font("Serif", Font.BOLD, 20));
-        modoJL.setOpaque(true);
-        modoJL.setBackground(new Color(209,180,140));
-        vaciaJL = new JLabel();
-        vaciaJL.setOpaque(true);
-        vaciaJL.setBackground(new Color(209,180,140));
-        panelOpciones.add(modoJL);
-        panelOpciones.add(vaciaJL);
-        
-        //Tercera fila y cuarta fila
         JPanel terceraFila = new JPanel();
-        terceraFila.setLayout(new GridLayout(2,1));
+        terceraFila.setLayout(new GridLayout(3,1));
         grupo = new ButtonGroup();
         agresivoJRB = new JRadioButton("Modo agresivo");
         defensivoJRB = new JRadioButton("Modo defensivo");
+        aleatorioJRB = new JRadioButton("Modo aleatorio");
         agresivoJRB.setHorizontalAlignment(JButton.CENTER);
         defensivoJRB.setHorizontalAlignment(JButton.CENTER);
+        aleatorioJRB.setHorizontalAlignment(JButton.CENTER);
         agresivoJRB.setBackground(new Color(209,180,140));
         defensivoJRB.setBackground(new Color(209,180,140));
+        aleatorioJRB.setBackground(new Color(209,180,140));
         grupo.add(agresivoJRB);
         grupo.add(defensivoJRB);
+        grupo.add(aleatorioJRB);
         terceraFila.add(agresivoJRB);
         terceraFila.add(defensivoJRB);
-        panelOpciones.add(terceraFila);
-        comenzarJB = new JButton("Comenzar");
-        comenzarJB.setFont(new Font("Verdana",Font.BOLD,15));
-        comenzarJB.setBackground(new Color(139,69,18));
-        comenzarJB.setForeground(Color.WHITE);
-        //comenzarJB.setFocusPainted(false);
-        //comenzarJB.setBorderPainted(false);
-        panelOpciones.add(comenzarJB);
+        terceraFila.add(aleatorioJRB);
         
+        modoJL = new JLabel("   Modo de juego: ", SwingConstants.CENTER);
+        modoJL.setFont(new Font("Serif", Font.BOLD, 25));
+        modoJL.setOpaque(true);
+        modoJL.setBackground(new Color(209,180,140));
+        /*
+        vaciaJL = new JLabel();
+        vaciaJL.setOpaque(true);
+        vaciaJL.setBackground(new Color(209,180,140));
+        panelOpciones.add(vaciaJL);
+        */
+        panelOpciones.add(modoJL);
+        panelOpciones.add(terceraFila);
+
         //Cuarta fila
         guardarPartidaJB = new JButton("Guardar partida");
         guardarPartidaJB.setFont(new Font("Verdana",Font.BOLD,15));
@@ -165,11 +163,12 @@ public class PanelDamas extends JPanel implements VistaDamas {
         cambiarTurnoJB.setFont(new Font("Verdana",Font.BOLD,15));
         cambiarTurnoJB.setBackground(new Color(139,69,18));
         cambiarTurnoJB.setForeground(Color.WHITE);
-        vaciaJL = new JLabel();
-        vaciaJL.setOpaque(true);
-        vaciaJL.setBackground(new Color(209,180,140));
         panelOpciones.add(cambiarTurnoJB);
-        panelOpciones.add(vaciaJL);
+        comenzarJB = new JButton("Comenzar");
+        comenzarJB.setFont(new Font("Verdana",Font.BOLD,15));
+        comenzarJB.setBackground(new Color(139,69,18));
+        comenzarJB.setForeground(Color.WHITE);
+        panelOpciones.add(comenzarJB);
         
         panelDerecha.add(panelOpciones);
         
@@ -252,7 +251,7 @@ public class PanelDamas extends JPanel implements VistaDamas {
         }else if(defensivoJRB.isSelected()){
             return new DamasDefensivo();
         }else{
-            return null;
+            return new DamasAleatorio();
         }
     }
     
@@ -290,7 +289,7 @@ public class PanelDamas extends JPanel implements VistaDamas {
     }
     
     public void setTextArea(String s){
-        textoJTA.append(s);
+        textoJTA.append(" "+s);
     }
     
     public void pintaPosiciones(List<Coordenada> p){

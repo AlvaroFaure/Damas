@@ -219,11 +219,11 @@ public class ControladorDamas implements ActionListener{
             resultado="DERROTA";
         }
         vista.mensaje("No puedes realizar movimientos. La partida ha terminado. Carga una o empieza una nueva");
-        vista.setTextArea("\n  - ESTADÍSTICAS -\n");
+        vista.setTextArea("\n  - ESTADÍSTICAS -\n\n");
         
         try {
             modelo.BBDD(nombreUsuario,modelo.getTablero().getMovimientos(),modelo.getTablero().getReinasTotales(),resultado);
-            vista.setTextArea("\n"+modelo.mostrarEstadisticas(nombreUsuario));
+            vista.setTextArea(modelo.mostrarEstadisticas(nombreUsuario));
         } catch (SQLException | ClassNotFoundException ex) {
             vista.error("ERROR: "+ex.getMessage());
         }
