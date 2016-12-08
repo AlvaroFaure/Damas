@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -90,15 +91,25 @@ public class PanelDamas extends JPanel implements VistaDamas {
         
         //Primera fila
         nombreJL = new JLabel("Nombre: ", SwingConstants.CENTER);
-        nombreJL.setFont(new Font("Serif", Font.BOLD, 30));
+        nombreJL.setFont(new Font("Serif", Font.BOLD, 25));
+        nombreJL.setOpaque(true);
+        nombreJL.setBackground(new Color(209,180,140));
+        nombreJL.setForeground(Color.BLACK);
         nombreJTF = new JTextField();
+        nombreJTF.setHorizontalAlignment(JTextField.CENTER);
+        nombreJTF.setFont(new Font("Serif", Font.PLAIN, 20));
+        nombreJTF.setBackground(new Color(238,228,211));
         panelOpciones.add(nombreJL);
         panelOpciones.add(nombreJTF);
         
         //Segunda fila
         modoJL = new JLabel("   Modo de juego: ", SwingConstants.CENTER);
         modoJL.setFont(new Font("Serif", Font.BOLD, 20));
+        modoJL.setOpaque(true);
+        modoJL.setBackground(new Color(209,180,140));
         vaciaJL = new JLabel();
+        vaciaJL.setOpaque(true);
+        vaciaJL.setBackground(new Color(209,180,140));
         panelOpciones.add(modoJL);
         panelOpciones.add(vaciaJL);
         
@@ -108,29 +119,55 @@ public class PanelDamas extends JPanel implements VistaDamas {
         grupo = new ButtonGroup();
         agresivoJRB = new JRadioButton("Modo agresivo");
         defensivoJRB = new JRadioButton("Modo defensivo");
+        agresivoJRB.setHorizontalAlignment(JButton.CENTER);
+        defensivoJRB.setHorizontalAlignment(JButton.CENTER);
+        agresivoJRB.setBackground(new Color(209,180,140));
+        defensivoJRB.setBackground(new Color(209,180,140));
         grupo.add(agresivoJRB);
         grupo.add(defensivoJRB);
         terceraFila.add(agresivoJRB);
         terceraFila.add(defensivoJRB);
         panelOpciones.add(terceraFila);
         comenzarJB = new JButton("Comenzar");
+        comenzarJB.setFont(new Font("Verdana",Font.BOLD,15));
+        comenzarJB.setBackground(new Color(139,69,18));
+        comenzarJB.setForeground(Color.WHITE);
+        //comenzarJB.setFocusPainted(false);
+        //comenzarJB.setBorderPainted(false);
         panelOpciones.add(comenzarJB);
         
         //Cuarta fila
         guardarPartidaJB = new JButton("Guardar partida");
+        guardarPartidaJB.setFont(new Font("Verdana",Font.BOLD,15));
+        guardarPartidaJB.setBackground(new Color(139,69,18));
+        guardarPartidaJB.setForeground(Color.WHITE);
         guardarPartidaJTF = new JTextField();
+        guardarPartidaJTF.setHorizontalAlignment(JTextField.CENTER);
+        guardarPartidaJTF.setFont(new Font("Serif", Font.PLAIN, 20));
+        guardarPartidaJTF.setBackground(new Color(238,228,211));
         panelOpciones.add(guardarPartidaJTF);
         panelOpciones.add(guardarPartidaJB);
         
         //Quinta fila
         cargarPartidaJB = new JButton("Cargar partida");
+        cargarPartidaJB.setFont(new Font("Verdana",Font.BOLD,15));
+        cargarPartidaJB.setBackground(new Color(139,69,18));
+        cargarPartidaJB.setForeground(Color.WHITE);
         cargarPartidaJTF = new JTextField();
+        cargarPartidaJTF.setHorizontalAlignment(JTextField.CENTER);
+        cargarPartidaJTF.setFont(new Font("Serif", Font.PLAIN, 20));
+        cargarPartidaJTF.setBackground(new Color(238,228,211));
         panelOpciones.add(cargarPartidaJTF);
         panelOpciones.add(cargarPartidaJB);
         
         //Debajo
         cambiarTurnoJB = new JButton("Mueve máquina");
+        cambiarTurnoJB.setFont(new Font("Verdana",Font.BOLD,15));
+        cambiarTurnoJB.setBackground(new Color(139,69,18));
+        cambiarTurnoJB.setForeground(Color.WHITE);
         vaciaJL = new JLabel();
+        vaciaJL.setOpaque(true);
+        vaciaJL.setBackground(new Color(209,180,140));
         panelOpciones.add(cambiarTurnoJB);
         panelOpciones.add(vaciaJL);
         
@@ -155,6 +192,21 @@ public class PanelDamas extends JPanel implements VistaDamas {
     public void controlador(ActionListener ctr) {
         comenzarJB.addActionListener(ctr);
         comenzarJB.setActionCommand("COMENZAR");
+        cargarPartidaJB.addActionListener(ctr);
+        cargarPartidaJB.setActionCommand("CARGAR");
+        guardarPartidaJB.addActionListener(ctr);
+        guardarPartidaJB.setActionCommand("GUARDAR");
+        cambiarTurnoJB.addActionListener(ctr);
+        cambiarTurnoJB.setActionCommand("SIGUIENTE");
+        
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8; j++){
+                tablero[i][j].addActionListener(ctr);
+                tablero[i][j].setActionCommand("CASILLA");
+            }
+        }
+        
+        
     }
     
     public void pintaTablero(Tablero t){
@@ -185,13 +237,70 @@ public class PanelDamas extends JPanel implements VistaDamas {
                     tablero[i][j].setIcon(imagen);
                 }
                 
-                
-                
             }
         }
-        
-        
+ 
     }
     
+    public String getNombre(){
+        return nombreJTF.getText();
+    }
     
+    public Damas getModo(){
+        if(agresivoJRB.isSelected()){
+            return new DamasAgresivo();
+        }else if(defensivoJRB.isSelected()){
+            return new DamasDefensivo();
+        }else{
+            return null;
+        }
+    }
+    
+    public void mensaje(String str){
+        mensajesJL.setText(str);
+        mensajesJL.setForeground(Color.BLUE);
+    }
+    
+    public void error(String err){
+        mensajesJL.setText(err);
+        mensajesJL.setForeground(Color.RED);
+    }
+    
+    public void resetea(){
+        textoJTA.setText("");
+    }
+    
+    public String getCargar(){
+        return cargarPartidaJTF.getText();
+    }
+    
+    public String getGuardar(){
+        return guardarPartidaJTF.getText();
+    }
+    
+    public Coordenada boton(JButton b){
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8; j++){
+                if(b==tablero[i][j]){
+                    return new Coordenada(i,j);
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void setTextArea(String s){
+        textoJTA.append(s);
+    }
+    
+    public void pintaPosiciones(List<Coordenada> p){
+        for(int i=0; i<p.size(); i++){
+            ImageIcon imagen = new ImageIcon("negroM.jpeg");
+            tablero[p.get(i).x()][p.get(i).y()].setIcon(imagen);
+        }
+    }
+    
+    public void habilitarSiguiente(boolean b){
+        cambiarTurnoJB.setEnabled(b);
+    }
 }

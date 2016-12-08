@@ -7,7 +7,6 @@ package damas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -15,7 +14,10 @@ import java.util.Random;
  */
 public abstract class Damas {
     
+    protected Tablero tablero;
+    
     public abstract Tablero mueveMaquina(Tablero t, char ficha);
+    public abstract char getModo();
     
     public Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
         Tablero tab = Tablero.clona(t);
@@ -31,6 +33,7 @@ public abstract class Damas {
             tab.setFichaRestringida(null);
         }
         
+        tablero = tab;
         return tab;
     }
     
@@ -180,5 +183,30 @@ public abstract class Damas {
         }
         
         return comer;
+    }
+    
+    public Tablero getTablero(){
+        return tablero;
+    }
+    
+    public void setTablero(Tablero t){
+        tablero=t;
+    }
+    
+    public boolean hayMovimientos(Tablero t, char ficha){
+        boolean hay=false;
+        
+        if((t.juegaBlanca() && Character.toUpperCase(ficha)=='N') || (t.juegaNegra() && Character.toUpperCase(ficha)=='B')){
+            return hayMovimientos(t,Tablero.getContraria(ficha));
+        }else{
+            for(int i=0; i<8;i++){
+                for(int j=0;j<8;j++){
+                    if(Character.toUpperCase(ficha)==Character.toUpperCase(t.getPosicion(i, j))){
+                        hay = hay || !getPosiblesPosiciones(t,i,j,null).isEmpty();
+                    }
+                }
+            }
+            return hay;
+        }
     }
 }

@@ -5,8 +5,11 @@
  */
 package damas;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,9 +31,13 @@ public class Pruebas {
                             };
         
         
-        Tablero t = new Tablero("fichero.txt");
-        //Tablero t = new Tablero(tab,false);
-        //Tablero t = new Tablero();
+        Tablero t = new Tablero();
+        try {
+            t = new Tablero("fichero.txt");
+            //t = new Tablero(tab,false);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         DamasAgresivo dm = new DamasAgresivo();
         

@@ -14,6 +14,7 @@ import java.util.Random;
  * @author inftel02
  */
 public class DamasDefensivo extends Damas{
+    private char modo = 'd';
     
     public Tablero mueveMaquina(Tablero t, char ficha) {
         List<Tablero> tableros = generaPosiblesTableros(t, ficha);
@@ -63,8 +64,13 @@ public class DamasDefensivo extends Damas{
             }
 
             Random rnd = new Random();
-            return elegidos.get(rnd.nextInt(elegidos.size()));
+            
+            tablero=elegidos.get(rnd.nextInt(elegidos.size()));
+            return tablero;
         }
     }
-    
+ 
+    public char getModo(){
+        return modo;
+    }
 }

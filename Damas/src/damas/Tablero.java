@@ -7,6 +7,7 @@ package damas;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -21,7 +22,8 @@ public class Tablero {
     private Coordenada fichaRestringida;
     private boolean comido;
     private int[] reinas; //[B,N]
-    
+    private String nombre;
+    private char modo;
     
     //CONSTRUCTORES
     
@@ -59,47 +61,46 @@ public class Tablero {
        cuentaReinas();
     }
     
-    public Tablero(String fich){
+    public Tablero(String fich) throws FileNotFoundException{
         File f = new File(fich);
         tablero = creaTablero();
         int x =0; int y = 0;
         
-        try{
-            Scanner sc = new Scanner(f);
-            String linea = sc.nextLine();
-            
-            Scanner scinfo = new Scanner(linea);
-            scinfo.useDelimiter(",");
-            
-            turno = scinfo.nextBoolean();
-            restringido = scinfo.nextBoolean();
-            fichaRestringida=null;
-            
-            
-            if(restringido){
-                fichaRestringida = new Coordenada(scinfo.nextInt(),scinfo.nextInt());
-            }
-            
-            scinfo.close();
-            
-            while(sc.hasNextLine()){
-                linea = sc.nextLine();
-                Scanner sc2 = new Scanner(linea);
-                sc2.useDelimiter(" ");
-                while(sc2.hasNext()){
-                    tablero[x][y]=sc2.next().charAt(0);
-                    y++;
-                }
-                System.out.println("");
-                x++; y=0;
-                sc2.close();
-            }
-            
-            sc.close();
-            cuentaReinas();
-        }catch(FileNotFoundException ex){
-            System.out.println("Fichero no encontrado");
+        Scanner sc = new Scanner(f);
+        String linea = sc.nextLine();
+
+        Scanner scinfo = new Scanner(linea);
+        scinfo.useDelimiter(",");
+
+        turno = scinfo.nextBoolean();
+        restringido = scinfo.nextBoolean();
+        fichaRestringida=null;
+
+
+        if(restringido){
+            fichaRestringida = new Coordenada(scinfo.nextInt(),scinfo.nextInt());
         }
+        
+        nombre = scinfo.next();
+        modo = scinfo.next().charAt(0);
+
+        scinfo.close();
+
+        while(sc.hasNextLine()){
+            linea = sc.nextLine();
+            Scanner sc2 = new Scanner(linea);
+            sc2.useDelimiter(" ");
+            while(sc2.hasNext()){
+                tablero[x][y]=sc2.next().charAt(0);
+                y++;
+            }
+            System.out.println("");
+            x++; y=0;
+            sc2.close();
+        }
+
+        sc.close();
+        cuentaReinas();
     }
     
     
@@ -160,7 +161,7 @@ public class Tablero {
         return valida(x,y) && tablero[x][y]=='X';
     }
     
-    public boolean prohibida(int x, int y){
+    public static boolean prohibida(int x, int y){
         return (x%2==0 && y%2==0) || (x%2!=0 && y%2!=0);
     }
     
@@ -464,5 +465,42 @@ public class Tablero {
         }
         
         return new Tablero(tab,t.getTurno(),t.esRestringido(),c);
+    }
+    
+    public void guardaTablero(String fich, String nom, Damas modo) throws FileNotFoundException{
+        PrintWriter pw = new PrintWriter(fich);
+        pw.print(turno+",");
+        pw.print(restringido+",");
+        if(restringido){
+            pw.print(fichaRestringida.x()+","+fichaRestringida.y()+",");
+        }
+        pw.print(nom+",");
+        
+        if(modo.getModo()=='a'){
+            pw.print("a\n");
+        }else{
+            pw.print("d\n");
+        }
+        
+        for(int i=0; i<getDimension();i++){
+            for(int j=0; j<getDimension(); j++){
+                pw.print(tablero[i][j]+" ");
+            }
+            pw.print("\n");
+        }
+        
+        pw.close();
+    }
+    
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public Damas getModo(){
+        if(modo=='a'){
+            return new DamasAgresivo();
+        }else{
+            return new DamasDefensivo();
+        }
     }
 }
