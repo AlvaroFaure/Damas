@@ -7,6 +7,11 @@ package damas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -18,6 +23,7 @@ public abstract class Damas {
     
     public abstract Tablero mueveMaquina(Tablero t, char ficha);
     public abstract char getModo();
+    private String nombreJugador;
     
     public Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
         Tablero tab = Tablero.clona(t);
@@ -208,5 +214,77 @@ public abstract class Damas {
             }
             return hay;
         }
+    }
+    private void BBDD(String nombreJugador, int movimientos, int numeroReinas, String resultado) throws SQLException{
+        boolean existe = false;
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        }catch(ClassNotFoundException e){
+            System.out.println("Error");
+        }
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:inftel16_12/inftel@olimpia.lcc.uma.es:1521:edgar");
+        Statement stmt = con.createStatement();
+        ResultSet resBaseDatos = stmt.executeQuery("SELECT nombreJugador FROM Jugador");
+        while (resBaseDatos.next()) {
+            String nombre = resBaseDatos.getString("nombreJugador");
+            if (nombre.equals(nombreJugador)){
+                existe = true;
+            }
+        }
+        if(!existe){
+            stmt.executeUpdate("INSERT INTO Jugador(nombreJugador) VALUES('"+nombreJugador+"')");
+            System.out.println("No existe el jugador, introducimos: "+nombreJugador);
+        }
+        stmt.executeUpdate("INSERT INTO Partida(jugador_nombreJugador, movimientosTotales, numReinas, resultado, idPartida) VALUES('"+nombreJugador+"', "+movimientos+", "+numeroReinas+", '"+resultado+"', SECUENCIA_ID.NEXTVAL)");
+        
+    }
+    private String mostrarEstadisticas(String nombreJugador) throws SQLException{
+        boolean existe = false;
+        String salida = "";
+        String nombre = "";
+        int movimientos = 0;
+        int numeroReinas = 0;
+        String resultadoPartida = "";
+        int partida = 0;
+        int victoria = 0;
+        int empate = 0;
+        int derrota = 0;
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        }catch(ClassNotFoundException e){
+            System.out.println("Error");
+        }
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:inftel16_12/inftel@olimpia.lcc.uma.es:1521:edgar");
+        Statement stmt = con.createStatement();
+        ResultSet resConsultaEst = stmt.executeQuery("SELECT jugador_nombrejugador, sum(movimientostotales), count(idpartida), sum(numreinas) FROM Partida where Jugador_nombreJugador = '"+nombreJugador+"' GROUP BY jugador_nombrejugador");
+        while (resConsultaEst.next()) {
+            nombre = resConsultaEst.getString("jugador_nombreJugador");
+            movimientos = resConsultaEst.getInt("sum(movimientosTotales)");
+            numeroReinas = resConsultaEst.getInt("sum(numReinas)");
+            partida = resConsultaEst.getInt("count(idPartida)");
+            if (nombre.equals(nombreJugador)){
+                existe = true;
+            }
+        }
+        ResultSet resConsultaVictoria = stmt.executeQuery("SELECT count(resultado) FROM Partida where Jugador_nombreJugador = '"+nombreJugador+"' and resultado = 'VICTORIA'");
+        while (resConsultaVictoria.next()) {
+            victoria = resConsultaVictoria.getInt("count(resultado)");
+        }
+        ResultSet resConsultaEmpate = stmt.executeQuery("SELECT count(resultado) FROM Partida where Jugador_nombreJugador = '"+nombreJugador+"' and resultado = 'EMPATE'");
+        while (resConsultaEmpate.next()) {
+            empate = resConsultaEmpate.getInt("count(resultado)");
+        }
+        ResultSet resConsultaDerrota = stmt.executeQuery("SELECT count(resultado) FROM Partida where Jugador_nombreJugador = '"+nombreJugador+"' and resultado = 'DERROTA'");
+        while (resConsultaDerrota.next()) {
+            derrota = resConsultaDerrota.getInt("count(resultado)");
+        }
+        if(!existe){
+            salida = "No existe el Jugador "+nombreJugador;
+            System.out.println("No existe el jugador: "+nombreJugador);
+        }else{
+            salida = "JUGADOR: "+nombreJugador+"\n PARTIDAS JUGADAS: "+partida+"\n MOVIMIENTOS: "+movimientos+"\n NUMERO DE REINAS: "+numeroReinas+"\n VICTORIAS: "+victoria+"\n EMPATES: "+empate+"\n DERROTAS: "+derrota;
+            System.out.println(salida);
+        }
+        return salida;
     }
 }
