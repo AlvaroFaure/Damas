@@ -53,4 +53,8 @@ public class Coordenada {
         return "("+ x + ", " + y + ")";
     }
     
+    public boolean equals(Object o){
+        return (o instanceof Coordenada) && ((Coordenada)o).x()==x && ((Coordenada)o).y()==y;
+    }
+    
 }

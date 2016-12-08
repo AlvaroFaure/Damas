@@ -6,6 +6,8 @@
 package damas;
 
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JButton;
 
 /**
  *
@@ -16,4 +18,15 @@ public interface VistaDamas {
     void controlador(ActionListener ctr);
     
     void pintaTablero(Tablero t);
+    String getNombre();
+    Damas getModo();
+    void mensaje(String str);
+    void error(String err);
+    String getCargar();
+    String getGuardar();
+    Coordenada boton(JButton b);
+    void setTextArea(String s);
+    void pintaPosiciones(List<Coordenada> l);
+    void habilitarSiguiente(boolean b);
+    void resetea();
 }
