@@ -335,7 +335,8 @@ public class PanelDamas extends JPanel implements VistaDamas {
     public void resetea_mensajes() {
         nombreJL.setText(Internacionalizacion.getString("name_label"));
         modoJL.setText(Internacionalizacion.getString("play_mode_label"));
-        mensajesJL.setText(Internacionalizacion.getString("welcome_label"));
+        mensajesJL.setText(Internacionalizacion.getString("language_label"));
+        mensajesJL.setForeground(Color.BLUE);
         agresivoJRB.setText(Internacionalizacion.getString("attack_mode_radio_button"));
         defensivoJRB.setText(Internacionalizacion.getString("defensive_mode_radio_button"));
         aleatorioJRB.setText(Internacionalizacion.getString("random_mode_radio_button"));
