@@ -56,7 +56,7 @@ public class TableroTest {
 
     }
 
-    @Test//1
+    /*@Test//1
     public void getPosicion() {
        
         char real;
@@ -66,7 +66,7 @@ public class TableroTest {
         real = t.getPosicion(6, 1);
         assertEquals("Prueba 1 correcta",real, res2);}
 
- @Test//2
+ /*@Test//2
     public void Valida() {
              
              boolean esperado=false; //false porque no esta dentro del tablero
@@ -137,16 +137,18 @@ public class TableroTest {
 
     }*/
     
-    /* @Test
+    @Test
     public void getDiagonal() { // Se le pasa int x, int y, y retorna el tablero
 
        
         Coordenada c= new Coordenada(3,6);
         Coordenada obtenida= c;
+        //boolean coorc= t.correcta('n',t.getDiagonal(true, false, true, 'n', 2, 3).x(),t.getDiagonal(true, false, true, 'n', 0, 1).y());
         //espera la coordenada 3,6
         Coordenada esperada= t.getDiagonal(false, true, true,'n', 5, 4);
         assertEquals(esperada,obtenida);
-    }*/
+    }
+}
   
  /*@Test
     public void cuentaFichas() {
@@ -182,7 +184,7 @@ public class TableroTest {
         assertFalse(obtenido);
     }*/
     
-    @Test
+    /*@Test
     public void FichaRestringida() {
     Coordenada c= new Coordenada(2,1); // Esto debe ser falso la esperada es 3,4 
         Coordenada obtenida= c;
@@ -235,7 +237,7 @@ public class TableroTest {
         assertEquals(esperado,obtenido);    }*/
         
 
-    }
+    
     
 
     

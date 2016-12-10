@@ -51,11 +51,11 @@ public class prutest {
         //System.out.println(t.toString());
         //System.out.println("-------------");
         //System.out.print(t1.toString());
-        //System.out.print(pru.getDiagonal(true, false, true, 'b', 2, 1));
+        System.out.print(t.getDiagonal(true, false, true, 'n', 0, 0));
         //System.out.print(pru.getPosicion(7,0));
         //System.out.print(pru.cuentaPuntos());// quiero los ptos dado un determinado tablero o numero de blancas y negras 
         //System.out.print(t.toStringPruebas());
-        System.out.print(Arrays.toString(t.cuentaFichas()));
+        //System.out.print(Arrays.toString(t.cuentaFichas()));
         
         //System.out.print(Arrays.toString(t.getTable[x],));
         
