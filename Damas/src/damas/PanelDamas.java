@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -47,7 +49,10 @@ public class PanelDamas extends JPanel implements VistaDamas {
     private JTextField guardarPartidaJTF;
     private JTextField cargarPartidaJTF;
     private JTextField nombreJTF;
+    private JButton englishJB;
+    private JButton spanishJB;
     
+
     public PanelDamas(){
         setLayout(new BorderLayout());
         
@@ -87,10 +92,11 @@ public class PanelDamas extends JPanel implements VistaDamas {
         JPanel panelDerecha = new JPanel();
         panelDerecha.setLayout(new GridLayout(2,1));
         JPanel panelOpciones = new JPanel();
-        panelOpciones.setLayout(new GridLayout(5,2));
+        panelOpciones.setLayout(new GridLayout(6,2));
         
         //Primera fila
-        nombreJL = new JLabel("Nombre: ", SwingConstants.CENTER);
+        //nombreJL = new JLabel("Nombre: ", SwingConstants.CENTER);
+        nombreJL = new JLabel(Internacionalizacion.getString("name_label"), SwingConstants.CENTER);
         nombreJL.setFont(new Font("Serif", Font.BOLD, 25));
         nombreJL.setOpaque(true);
         nombreJL.setBackground(new Color(209,180,140));
@@ -105,9 +111,12 @@ public class PanelDamas extends JPanel implements VistaDamas {
         JPanel terceraFila = new JPanel();
         terceraFila.setLayout(new GridLayout(3,1));
         grupo = new ButtonGroup();
-        agresivoJRB = new JRadioButton("Modo agresivo");
-        defensivoJRB = new JRadioButton("Modo defensivo");
-        aleatorioJRB = new JRadioButton("Modo aleatorio");
+        //agresivoJRB = new JRadioButton("Modo agresivo");
+        agresivoJRB = new JRadioButton(Internacionalizacion.getString("attack_mode_radio_button"));
+        defensivoJRB = new JRadioButton(Internacionalizacion.getString("defensive_mode_radio_button"));
+        //defensivoJRB = new JRadioButton("Modo defensivo");
+        //aleatorioJRB = new JRadioButton("Modo aleatorio");
+        aleatorioJRB = new JRadioButton(Internacionalizacion.getString("random_mode_radio_button"));
         agresivoJRB.setHorizontalAlignment(JButton.CENTER);
         defensivoJRB.setHorizontalAlignment(JButton.CENTER);
         aleatorioJRB.setHorizontalAlignment(JButton.CENTER);
@@ -121,7 +130,8 @@ public class PanelDamas extends JPanel implements VistaDamas {
         terceraFila.add(defensivoJRB);
         terceraFila.add(aleatorioJRB);
         
-        modoJL = new JLabel("   Modo de juego: ", SwingConstants.CENTER);
+        //modoJL = new JLabel("   Modo de juego: ", SwingConstants.CENTER);
+        modoJL = new JLabel(Internacionalizacion.getString("play_mode_label"), SwingConstants.CENTER);
         modoJL.setFont(new Font("Serif", Font.BOLD, 25));
         modoJL.setOpaque(true);
         modoJL.setBackground(new Color(209,180,140));
@@ -135,7 +145,8 @@ public class PanelDamas extends JPanel implements VistaDamas {
         panelOpciones.add(terceraFila);
 
         //Cuarta fila
-        guardarPartidaJB = new JButton("Guardar partida");
+        //guardarPartidaJB = new JButton("Guardar partida");
+        guardarPartidaJB = new JButton(Internacionalizacion.getString("save_game_button"));
         guardarPartidaJB.setFont(new Font("Verdana",Font.BOLD,15));
         guardarPartidaJB.setBackground(new Color(139,69,18));
         guardarPartidaJB.setForeground(Color.WHITE);
@@ -147,7 +158,8 @@ public class PanelDamas extends JPanel implements VistaDamas {
         panelOpciones.add(guardarPartidaJB);
         
         //Quinta fila
-        cargarPartidaJB = new JButton("Cargar partida");
+        //cargarPartidaJB = new JButton("Cargar partida");
+        cargarPartidaJB = new JButton(Internacionalizacion.getString("charge_game_button"));
         cargarPartidaJB.setFont(new Font("Verdana",Font.BOLD,15));
         cargarPartidaJB.setBackground(new Color(139,69,18));
         cargarPartidaJB.setForeground(Color.WHITE);
@@ -159,18 +171,28 @@ public class PanelDamas extends JPanel implements VistaDamas {
         panelOpciones.add(cargarPartidaJB);
         
         //Debajo
-        cambiarTurnoJB = new JButton("Mueve máquina");
+        //cambiarTurnoJB = new JButton("Mueve máquina");
+        cambiarTurnoJB = new JButton(Internacionalizacion.getString("move_machine"));
         cambiarTurnoJB.setFont(new Font("Verdana",Font.BOLD,15));
         cambiarTurnoJB.setBackground(new Color(139,69,18));
         cambiarTurnoJB.setForeground(Color.WHITE);
         panelOpciones.add(cambiarTurnoJB);
-        comenzarJB = new JButton("Comenzar");
+        //comenzarJB = new JButton("Comenzar");
+        comenzarJB = new JButton(Internacionalizacion.getString("start_button"));
         comenzarJB.setFont(new Font("Verdana",Font.BOLD,15));
         comenzarJB.setBackground(new Color(139,69,18));
         comenzarJB.setForeground(Color.WHITE);
         panelOpciones.add(comenzarJB);
         
         panelDerecha.add(panelOpciones);
+        
+        // Sexta fila
+        //spanishJB = new JButton ("ESPAÑOL");
+        spanishJB = new JButton(Internacionalizacion.getString("spanish_button").toUpperCase());
+        //englishJB = new JButton ("INGLÉS");
+        englishJB = new JButton(Internacionalizacion.getString("English_button").toUpperCase());
+        panelOpciones.add(spanishJB);
+        panelOpciones.add(englishJB);
         
         //PANEL DERECHO ABAJO
         
@@ -183,7 +205,8 @@ public class PanelDamas extends JPanel implements VistaDamas {
         add(panelCentral,BorderLayout.CENTER);
         
         //PANEL GENERAL: SUR
-        mensajesJL = new JLabel("Bienvenido. Elige cargar partida o comenzar una nueva", SwingConstants.CENTER);
+        mensajesJL=new JLabel(Internacionalizacion.getString("welcome_label"), SwingConstants.CENTER);
+        //mensajesJL = new JLabel("Bienvenido. Elige cargar partida o comenzar una nueva", SwingConstants.CENTER);
         mensajesJL.setForeground(Color.BLUE);
         add(mensajesJL,BorderLayout.SOUTH);
     }
@@ -197,6 +220,11 @@ public class PanelDamas extends JPanel implements VistaDamas {
         guardarPartidaJB.setActionCommand("GUARDAR");
         cambiarTurnoJB.addActionListener(ctr);
         cambiarTurnoJB.setActionCommand("SIGUIENTE");
+        spanishJB.addActionListener(ctr);
+        spanishJB.setActionCommand("ESPAÑOL");
+        englishJB.addActionListener(ctr);
+        englishJB.setActionCommand("INGLÉS");
+        
         
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
@@ -301,5 +329,23 @@ public class PanelDamas extends JPanel implements VistaDamas {
     
     public void habilitarSiguiente(boolean b){
         cambiarTurnoJB.setEnabled(b);
+    }
+    
+    @Override
+    public void resetea_mensajes() {
+        nombreJL.setText(Internacionalizacion.getString("name_label"));
+        modoJL.setText(Internacionalizacion.getString("play_mode_label"));
+        mensajesJL.setText(Internacionalizacion.getString("language_label"));
+        mensajesJL.setForeground(Color.BLUE);
+        agresivoJRB.setText(Internacionalizacion.getString("attack_mode_radio_button"));
+        defensivoJRB.setText(Internacionalizacion.getString("defensive_mode_radio_button"));
+        aleatorioJRB.setText(Internacionalizacion.getString("random_mode_radio_button"));
+        modoJL.setText(Internacionalizacion.getString("play_mode_label"));
+        guardarPartidaJB.setText(Internacionalizacion.getString("save_game_button"));
+        cargarPartidaJB.setText(Internacionalizacion.getString("charge_game_button"));
+        cambiarTurnoJB.setText(Internacionalizacion.getString("move_machine"));
+        comenzarJB.setText(Internacionalizacion.getString("start_button"));
+        spanishJB.setText(Internacionalizacion.getString("spanish_button").toUpperCase());
+        englishJB.setText(Internacionalizacion.getString("English_button").toUpperCase());
     }
 }

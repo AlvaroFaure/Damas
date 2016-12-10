@@ -28,7 +28,7 @@ public class Tablero {
     private int reinasTotales;
     
     //CONSTRUCTORES
-    
+        
     public Tablero(){
        tablero = creaTablero();
        turno=false;
@@ -38,6 +38,7 @@ public class Tablero {
        reinasTotales=0;
        movimientos=0;
     }
+    
 
     public Tablero(char[][] tablero, boolean juega, boolean restr, Coordenada ficha, int m, int r){
        this.tablero = tablero;
@@ -47,6 +48,7 @@ public class Tablero {
        cuentaReinas();
        reinasTotales=r;
        movimientos=m;
+       
     }
     
     public Tablero(String fich) throws FileNotFoundException{

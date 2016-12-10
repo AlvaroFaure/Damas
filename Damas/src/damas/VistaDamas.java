@@ -29,4 +29,6 @@ public interface VistaDamas {
     void pintaPosiciones(List<Coordenada> l);
     void habilitarSiguiente(boolean b);
     void resetea();
+    void resetea_mensajes();
+   
 }
