@@ -35,8 +35,6 @@ public class PanelDamas extends JPanel implements VistaDamas {
     private JTextArea textoJTA;
     private JScrollPane textoJSP;
     private JButton[][] tablero = new JButton[8][8];
-    //JFrame ventana = new JFrame();
-    JFrame ventana = new JFrame(Internacionalizacion.getString("ladies_inftel_frame"));
     
     private JLabel nombreJL;
     private JLabel modoJL;
@@ -335,7 +333,6 @@ public class PanelDamas extends JPanel implements VistaDamas {
     
     @Override
     public void resetea_mensajes() {
-        JuegoDamas jd= new JuegoDamas();
         nombreJL.setText(Internacionalizacion.getString("name_label"));
         modoJL.setText(Internacionalizacion.getString("play_mode_label"));
         mensajesJL.setText(Internacionalizacion.getString("welcome_label"));
@@ -349,6 +346,5 @@ public class PanelDamas extends JPanel implements VistaDamas {
         comenzarJB.setText(Internacionalizacion.getString("start_button"));
         spanishJB.setText(Internacionalizacion.getString("spanish_button").toUpperCase());
         englishJB.setText(Internacionalizacion.getString("English_button").toUpperCase());
-        ventana.setTitle(Internacionalizacion.getString("ladies_inftel_frame"));
     }
 }

@@ -21,7 +21,7 @@ public class JuegoDamas{
         ActionListener ctr = new ControladorDamas(vista, modelo);
         vista.controlador(ctr);
 
-        JFrame ventana = new JFrame(Internacionalizacion.getString("ladies_inftel_frame"));
+        JFrame ventana = new JFrame("Damas Inftel");
         ventana.setSize(1000, 700);
         ventana.setResizable(false);
 
