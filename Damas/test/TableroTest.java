@@ -20,7 +20,8 @@ import static org.junit.Assert.*;
  */
 public class TableroTest {
 
-    Tablero t;
+    //Tablero t;
+    Tablero t= new Tablero();
 
     public TableroTest() {
     }
@@ -43,10 +44,10 @@ public class TableroTest {
             {'b', 'X', 'X', 'X', 'n', 'X', 'n', 'X'},
             {'X', 'X', 'X', 'X', 'X', 'n', 'b', 'X'},
             {'X', 'X', 'X', 'X', 'n', 'X', 'X', 'n'},
-            {'X', 'X', 'X', 'b', 'X', 'n', 'X', 'X'},
+            {'X', 'n', 'X', 'b', 'X', 'n', 'X', 'X'},
             {'X', 'X', 'B', 'X', 'n', 'X', 'n', 'X'}
         };
-        t = new Tablero(tab, false, false, new Coordenada(7, 8), 7, 2);
+        t = new Tablero(tab, false, false, new Coordenada(3, 4), 7, 1);
         //t= new Tablero();
     }
 
@@ -55,32 +56,32 @@ public class TableroTest {
 
     }
 
-    /*@Test
+    @Test//1
     public void getPosicion() {
-        Tablero pru = new Tablero();
+       
         char real;
         char res1 = 'b';// pruebo posiciones (0,1)(0,3)(0,5)(0,7)(1,0)(1,2)
         char res2 = 'n';//(7,0)(5,0)(6,1)
         char res3 = 'X'; //
-        real = pru.getPosicion(6, 1);
-        assertEquals(real, res2);}*/
+        real = t.getPosicion(6, 1);
+        assertEquals("Prueba 1 correcta",real, res2);}
 
- /*@Test
+ @Test//2
     public void Valida() {
-             Tablero pru= new Tablero();
-             boolean esperado=false;
-             boolean obtenido= pru.valida(9, 2);
+             
+             boolean esperado=false; //false porque no esta dentro del tablero
+             boolean obtenido= t.valida(9, 2);
              assertEquals(obtenido,esperado);
-    }*/
- /*@Test
+    }
+   /*@Test//3
     public void Correcta() {
-             Tablero pru= new Tablero();
+            
              boolean esperado=false;
-             boolean obtenido= pru.correcta('b', 0, 0);// posicion correcta
+             boolean obtenido= t.correcta('b', 0, 0);// posicion correcta
              //assertEquals("fallo se esperaban los mismos",obtenido,esperado);
              assertTrue(obtenido);
     }*/
- /*@Test
+ /*@Test//4
     public void prohibida() {
      
         boolean obtenido = t.prohibida(0, 2);// Posicion prohibida 
@@ -92,27 +93,22 @@ public class TableroTest {
  /*@Test
     public void comerIzquierdaDelante() {
     
-            Tablero pru= new Tablero();
+            
             boolean esperado= true;
             
-            boolean obtenido= pru.comerIzquierdaDelante('b', 2, 1);
+            boolean obtenido= t.comerIzquierdaDelante('b', 2, 5);
             assertEquals(obtenido,esperado);
     }*/
  /*@Test
-    public void comerIzquierdaDelante() {
-        boolean obtenido = t.comerIzquierdaDelante('b', 2, 5);// posicion correcta
-        assertTrue(obtenido);
-    }*/
- /*@Test
     public void comerDerechaDelante() {     
-        boolean esperado= false;
-        boolean obtenido= t.comerDerechaDelante('n', 3, 4);
+        boolean esperado= false;// no esta en una posicion de comerderechadelante
+        boolean obtenido= t.comerDerechaDelante('n', 2, 4);
         assertEquals(esperado,obtenido);
     
     }*/
  /*@Test
     public void comerIzquierdaDetras() {            
-        boolean obtenido= t.comerIzquierdaDetras('n', 3, 4);
+        boolean obtenido= t.comerIzquierdaDetras('n', 3, 4);// me dara false
          assertFalse(obtenido);   
     }*/
  /*@Test
@@ -130,79 +126,44 @@ public class TableroTest {
 
         Tablero pru = null;
         Coordenada c= new Coordenada(3,2);
-        Coordenada esperada= c;
-        //Coordenada obtenida= pru.getDiagonal(true, false, true,'b',2,1);;
-        //assertEquals(esperada,obtenida);
+        Coordenada esperada= c;       
 
         try {
-            Coordenada obtenida= pru.getDiagonal(true, false, true,'b',2,1);
-           
+            Coordenada obtenida= pru.getDiagonal(true, false, true,'b',2,1);           
             
             fail("Se esperaba excepcion NullPointerException");
         } catch (NullPointerException e) {
         }
 
-    }
+    }*/
     
-     /*@Test
+    /* @Test
     public void getDiagonal() { // Se le pasa int x, int y, y retorna el tablero
 
-        Tablero pru = new Tablero();
-        Coordenada c= new Coordenada(3,2);
-        Coordenada obtenida= c;
-        //Coordenada obtenida= pru.getDiagonal(true, false, true,'b',2,1);
-        Coordenada esperada= pru.getDiagonal(true, false, true,'b', 2, 1);
-        assertEquals(esperada,obtenida);
        
-        } interrogante*/
- /*@Test //Interrogante
-    @Override
-    public String toString() {
-        char[][] tab =  new char[][] {
-                                {'X','X','X','X','X','b','X','b'},
-                                {'b','X','X','X','n','X','X','X'},
-                                {'X','X','X','X','X','b','X','X'},
-                                {'b','X','X','X','n','X','n','X'},
-                                {'X','X','X','X','X','n','b','X'},
-                                {'X','X','X','X','n','X','X','n'},
-                                {'X','X','X','b','X','n','X','X'},
-                                {'X','X','B','X','n','X','n','X'}
-                            };
-         char[][] ta =  new char[][] {
-                                {'X','b','X','b','X','b','X','b'},
-                                {'b','X','X','X','n','X','X','X'},
-                                {'X','X','X','X','X','b','X','X'},
-                                {'b','X','X','X','n','X','n','X'},
-                                {'X','X','X','X','X','n','b','X'},
-                                {'X','X','X','X','n','X','X','n'},
-                                {'X','X','X','b','X','n','X','X'},
-                                {'X','X','B','X','n','X','n','X'}
-                            };
-        t = new Tablero(tab, false, false, new Coordenada(7,8),7,2);
-        Tablero t1 = new Tablero(ta, false, false, new Coordenada(7,8),7,2);
-        String esperado= t1.toString();
-        String obtenido= t.toString();
-        
-         assertEquals(esperado, obtenido);   //esto tiene que dar false son tableros distintos   
-        return null;
+        Coordenada c= new Coordenada(3,6);
+        Coordenada obtenida= c;
+        //espera la coordenada 3,6
+        Coordenada esperada= t.getDiagonal(false, true, true,'n', 5, 4);
+        assertEquals(esperada,obtenida);
     }*/
-
+  
  /*@Test
     public void cuentaFichas() {
-        int[] esperado = {8, 9};
+        int[] esperado = {8, 10};
         int[] result = t.cuentaFichas();
         assertArrayEquals(esperado, result);
     }*/
- /*@Test
-    public void getDimension() {
-        Tablero pru;//dimension del tablero
-        pru = new Tablero(true);
-        int real = 8;
-        int obt = 5;
-        int resultado = pru.getDimension();
-        assertEquals(obt, resultado);
+    
+      /*@Test
+    public void getTurno() {
+        //Tablero que estoy usando Tablero t = new Tablero(tab, false, false, new Coordenada(7,8),7,2);
+  
+        boolean obtenido = t.getTurno();
+        assertFalse(obtenido);
     }*/
- /*@Test
+ 
+    /*@Test
     public void juegaBlanca() {
         //JuegaBlanca es false
         boolean obtenido = t.juegaBlanca();
@@ -221,13 +182,13 @@ public class TableroTest {
         assertFalse(obtenido);
     }*/
     
-    /*@Test
-    public void getTurno() {
-    Coordenada c= new Coordenada(3,2); // Esto debe ser falso la esperada es 7,8 
+    @Test
+    public void FichaRestringida() {
+    Coordenada c= new Coordenada(2,1); // Esto debe ser falso la esperada es 3,4 
         Coordenada obtenida= c;
         Coordenada esperada= t.getFichaRestringida();
         assertEquals(esperada,obtenida);
-    }*/
+    } //DA FALSOOOOOOO
     
     /*@Test
     public void getReinas() {
@@ -236,15 +197,49 @@ public class TableroTest {
         assertArrayEquals(esperado, result);
     }*/
     
+    /*@Test
+    public void getDimension() {
+      
+        int obt = 8;
+        int resultado = t.getDimension();
+        assertEquals(obt, resultado);
+    }*/
     
+    /*@Test
+    public void hecomido() {
+         boolean obtenido = t.heComido();// he comido inicializa en false
+        assertFalse(obtenido);    }*/
     
-    
-    @Test
-    public void getTurno() {
+    /*@Test
+    public void clona() {
         //Tablero que estoy usando Tablero t = new Tablero(tab, false, false, new Coordenada(7,8),7,2);
-  
-        boolean obtenido = t.getTurno();
-        assertFalse(obtenido);
+        char[][] tab = new char[][]{
+            {'X', 'X', 'X', 'X', 'X', 'b', 'X', 'b'},
+            {'b', 'X', 'X', 'X', 'n', 'X', 'X', 'X'},
+            {'X', 'X', 'X', 'X', 'X', 'b', 'X', 'X'},
+            {'b', 'X', 'X', 'X', 'n', 'X', 'n', 'X'},
+            {'X', 'X', 'X', 'X', 'X', 'n', 'b', 'X'},
+            {'X', 'X', 'X', 'X', 'n', 'X', 'X', 'n'},
+            {'X', 'n', 'X', 'b', 'X', 'n', 'X', 'X'},
+            {'X', 'X', 'B', 'X', 'n', 'X', 'n', 'X'}
+        };   
+        Tablero obt= Tablero.clona(t);
+        Tablero esp= new Tablero(tab, false, false, new Coordenada(7,8),7,2);
+        
+    }*/
+         
+    /*@Test
+    public void getReinasTotales() {
+         int obtenido = t.getReinasTotales();// Reinas al finalizar el juego
+         int esperado = 1;
+        assertEquals(esperado,obtenido);    }*/
+        
 
     }
-}
+    
+
+    
+    
+    
+  
+
