@@ -10,12 +10,20 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
- * @author inftel02
+ * clase que implementa el juego de la maquina,en primer lugar chequea si puede comer ficha, 
+ * luego por orden de prioridad: conseguir hacer reina, intentar evitar que el jugador coma ficha
+ * 
+ * 
+ * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
  */
 public class DamasAgresivo extends Damas {
     private char modo = 'a';
 
+    /**
+     * crea una instacia de Tablero recibiendo como parametros un tablero y el caracter de la ficha
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     */
     public Tablero mueveMaquina(Tablero t, char ficha) {
         List<Tablero> tableros = generaPosiblesTableros(t, ficha);
         List<Tablero> elegidos = new ArrayList<>();
@@ -68,7 +76,9 @@ public class DamasAgresivo extends Damas {
         }
     }
 
-    
+    /**
+     *@return devuelve el modo de juego
+     */
     public char getModo(){
         return modo;
     }

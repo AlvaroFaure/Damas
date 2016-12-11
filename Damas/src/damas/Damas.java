@@ -15,7 +15,8 @@ import java.sql.Statement;
 
 /**
  *
- * @author inftel02
+ *
+ * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
  */
 public abstract class Damas {
     
@@ -25,6 +26,15 @@ public abstract class Damas {
     public abstract char getModo();
     private String nombreJugador;
     
+    
+    /**
+     * crea una instacia de Tablero recibiendo como parametros un tablero y dos coordenadas
+     * @param t contiene un tablero 
+     * @param x contiene un entero con la coordenada x de la ficha
+     * @param y contiene un entero con la coordenada y de la ficha
+     * @param x2 contiene un entero con la coordenada x de la casilla a la que se muevev la ficha 
+     * @param y2 contiene un entero con la coordenada y de la casilla a la que se mueve la ficha
+     */
     public Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
         Tablero tab = Tablero.clona(t);
         tab.moverFicha(x,y,x2,y2);
@@ -42,7 +52,12 @@ public abstract class Damas {
         tablero = tab;
         return tab;
     }
-    
+    /**
+     * crea una lista de posibles tableros
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     * @return devuelve una lista de tableros
+     */
     protected List<Tablero> generaPosiblesTableros(Tablero t, char ficha){
         List<Tablero> tableros = new ArrayList<>();
         boolean comer = puedoComer(t,ficha);
@@ -64,7 +79,14 @@ public abstract class Damas {
         */      
         return tableros;
     }
-    
+    /**
+     * genera  tableros
+     * @param posiciones contiene una lista de coordenadas 
+     * @param x contiene un entero con la posicion x 
+     * @param y contiene un entero con la posicion y
+     * @param t contiene un tablero 
+     * @return devuelve una lista de tableros
+     */
     private List<Tablero> generaTableros(List<Coordenada> posiciones, int x, int y, Tablero t){
         List<Tablero> tableros = new ArrayList<>();
         
@@ -88,6 +110,14 @@ public abstract class Damas {
         return tableros;
     }
     
+    /**
+     * crea una lista de posibles posiciones
+     * @param t contiene un tablero 
+     * @param x contiene un entero con la coordenada x
+     * @param y contiene un entero con la coordenada y
+     * @param comer booleano
+     * @return devuelve una lista de coordenadas
+     */
     public List<Coordenada> getPosiblesPosiciones(Tablero t, int x, int y, Boolean comer){
         char ficha = t.getPosicion(x, y);
         
@@ -116,6 +146,14 @@ public abstract class Damas {
         }
     }
     
+    /**
+     * crea una lista de coordenadas en la que se come ficha
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     * @param x devuelve un entero de la coordenada x de la ficha
+     * @param y devuelve un entero de la coordenada y de la ficha
+     * @return devuelve una lista de coordenadas
+     */
     private List<Coordenada> comerFicha(Tablero t, char ficha, int x, int y){
         List<Coordenada> posiciones = new ArrayList<>();
         
@@ -144,7 +182,14 @@ public abstract class Damas {
         return posiciones;
     }
     
-    
+    /**
+     * crea una lista de coordenadas en la que se mueve ficha
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     * @param x devuelve un entero de la coordenada x de la ficha
+     * @param y devuelve un entero de la coordenada y de la ficha
+     * @return devuelve una lista de coordenadas
+     */
     private List<Coordenada> mover(Tablero t, char ficha, int x, int y){
         List<Coordenada> posiciones = new ArrayList<>();
         
@@ -176,6 +221,12 @@ public abstract class Damas {
         return posiciones;
     }
     
+    
+    /**
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     * @return devuelve un booleano, true si la ficha puede comer una ficha del adversario
+     */
     protected boolean puedoComer(Tablero t, char ficha){
         boolean comer = false;
         
@@ -191,14 +242,26 @@ public abstract class Damas {
         return comer;
     }
     
+    /**
+     * @return devuelve el tablero
+     */
     public Tablero getTablero(){
         return tablero;
     }
     
+    /**
+     * modifica el tablero recibiendo como parámetro un tablero t
+     * @param t contiene un tablero
+     */
     public void setTablero(Tablero t){
         tablero=t;
     }
     
+    /**
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     * @return devuelve un booleano, true si se puede mover ficha o comer ficha
+     */
     public boolean hayMovimientos(Tablero t, char ficha){
         boolean hay=false;
         
@@ -216,6 +279,12 @@ public abstract class Damas {
         }
     }
     
+    /** guarda el base de datos las estadisticas de una partida
+     * @param nombreJugador contiene una cadena con el nombre del jugador
+     * @param movimientos contiene un entero con el numero de moviemientos en la partida
+     * @param numeroReinas contiene un entero con el numero de reinas en la partida
+     * @param resultado contiene una Strig con la cadena 'VICTORIA','EMPATE' o 'DERROTA'
+     */
     public void BBDD(String nombreJugador, int movimientos, int numeroReinas, String resultado) throws SQLException, ClassNotFoundException{
         boolean existe = false;
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -238,6 +307,11 @@ public abstract class Damas {
         
     }
     
+    /**
+     * muestra las estadisticas de un jugador
+     * @param nombreJugador contiene una cadena con el numbre del jugador
+     * @return devuelve un string con las estadisticas totales del jugador
+     */
     public String mostrarEstadisticas(String nombreJugador) throws SQLException{
         boolean existe = false;
         String salida;

@@ -21,54 +21,65 @@ public class Coordenada {
     public Coordenada(){
         x=0; y=0;
     }
-    /**crea una nueva instancia de Coordenada recibiendo una coordenada
-     * @param cord contiene los valores de x e y
+    /**
+     * crea una nueva instancia de Coordenada recibiendo una coordenada
+     * @param cord contiene una coordenada que se guarda en x e y
      */
     public Coordenada(Coordenada cord){
         x=cord.x();
         y=cord.y();
     }
-    /**crea una nueva instancia de Coordenada recibiendo dos enteros
-     * @param x valor de la coordenada x
-     * @param y valor de la coordenada y
+    /**
+     * crea una nueva instancia de Coordenada recibiendo dos enteros
+     * @param x contiene un entero que se guarda en el atributo x 
+     * @param y contiene un entero que se guarda en el atributo y
      */
     public Coordenada(int x1, int y1){
         x=x1; y=y1;
     }
     /**
-     *@return devuelve coordenada x
+     * devuelve x
+     *@return devuelve un entero de la coordenada x
      */
     public int x(){
         return x;
     }
     /**
-     *@return devuelve coordenada y
+     * devuelve y
+     *@return devuelve un entero de la coordenada y
      */
     public int y(){
         return y;
     }
 
     /**
-     * @param x establece el valor de la coordenada x 
+     * modifica el valor de la coordenada x
+     * @param x contiene un entero con el valor a cambiar  
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * @param y establece el valor de la coordenada y 
+     * modifica el valor de la coordenada y 
+     * @param y contiene un entero con el valor a cambiar 
      */
     public void setY(int y) {
         this.y = y;
     }
     
     /**
+     * devuelve string de la coordenada
      *@return devuelve un string de la coordenada de la forma (x,y)
      */
     public String toString(){
         return "("+ x + ", " + y + ")";
     }
     
+    /**
+     * @param o contiene un objeto
+     * devuelve un booleano, es true si el objeto o es una instancia de coordenada y coincide con la coordenada x,y
+     */
     public boolean equals(Object o){
         return (o instanceof Coordenada) && ((Coordenada)o).x()==x && ((Coordenada)o).y()==y;
     }
