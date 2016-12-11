@@ -17,11 +17,11 @@ public class TestRunner {
 
         Result nombreTest = JUnitCore.runClasses(TableroTest.class);
         if (nombreTest.wasSuccessful()) {
-            System.out.println(nombreTest.wasSuccessful());
-            System.out.print("Cantidad de tests probados: " + nombreTest.getRunCount());
+            System.out.println("ÈXITO DE LOS TESTS: "+nombreTest.wasSuccessful());
+            System.out.print("Cantidad de tests probados: " + nombreTest.getRunCount()+"\n");
 
         } else {
-            System.out.print(nombreTest.getFailures());
+            System.out.print("Errores encontrados: "+nombreTest.getFailures());
         }
 
     }
