@@ -31,8 +31,8 @@ public class Coordenada {
     }
     /**
      * crea una nueva instancia de Coordenada recibiendo dos enteros
-     * @param x contiene un entero que se guarda en el atributo x 
-     * @param y contiene un entero que se guarda en el atributo y
+     * @param x1 contiene un entero que se guarda en el atributo x 
+     * @param y1 contiene un entero que se guarda en el atributo y
      */
     public Coordenada(int x1, int y1){
         x=x1; y=y1;

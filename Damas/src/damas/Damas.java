@@ -34,6 +34,7 @@ public abstract class Damas {
      * @param y contiene un entero con la coordenada y de la ficha
      * @param x2 contiene un entero con la coordenada x de la casilla a la que se muevev la ficha 
      * @param y2 contiene un entero con la coordenada y de la casilla a la que se mueve la ficha
+     * @return Tablero devuleve un tablero con la nueva posición
      */
     public Tablero mueveJugador(Tablero t, int x, int y, int x2, int y2){
         Tablero tab = Tablero.clona(t);
@@ -284,6 +285,11 @@ public abstract class Damas {
      * @param movimientos contiene un entero con el numero de moviemientos en la partida
      * @param numeroReinas contiene un entero con el numero de reinas en la partida
      * @param resultado contiene una Strig con la cadena 'VICTORIA','EMPATE' o 'DERROTA'
+     * @throws SQLException si no se encuentran los datos
+     * @throws ClassNotFoundException  thrown when an application tries to load in a class through its string name using:
+     * The forName method in class Class.
+     * The findSystemClass method in class ClassLoader .
+     * The loadClass method in class ClassLoader. 
      */
     public void BBDD(String nombreJugador, int movimientos, int numeroReinas, String resultado) throws SQLException, ClassNotFoundException{
         boolean existe = false;
@@ -311,6 +317,7 @@ public abstract class Damas {
      * muestra las estadisticas de un jugador
      * @param nombreJugador contiene una cadena con el numbre del jugador
      * @return devuelve un string con las estadisticas totales del jugador
+     * @throws SQLException si no se encuentran los datos
      */
     public String mostrarEstadisticas(String nombreJugador) throws SQLException{
         boolean existe = false;

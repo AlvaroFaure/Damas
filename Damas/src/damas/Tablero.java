@@ -66,7 +66,12 @@ public class Tablero {
      * crea una instacia de Tablero recibiendo como parametros un String
      * @param fich cadena que contiene todos los parametros que se guardan en 
      * los atributos de la clase Tablero
+     * @throws FileNotFoundException hrown when an application tries to load in a class through its string name using:
+     * The forName method in class Class.
+     * The findSystemClass method in class ClassLoader .
+     * The loadClass method in class ClassLoader. 
      */
+     
     public Tablero(String fich) throws FileNotFoundException{
         File f = new File(fich);
         tablero = creaTablero();
@@ -607,6 +612,7 @@ public class Tablero {
      * @param fich contiene una cadena con el nombre del archivo de salida 
      * @param nom contiene una cadena con el nombre del jugador
      * @param modo contiene una clase damas con el modo de juego
+     * @throws  FileNotFoundException si el fichero no existe
      */
     public void guardaTablero(String fich, String nom, Damas modo) throws FileNotFoundException{
         PrintWriter pw = new PrintWriter(fich);
