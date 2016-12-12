@@ -10,12 +10,19 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * clase que implementa el juego de la maquina en el que los movimientos son aleatorios,
+ * salvo que tenga que comer ficha que es obligatorio, 
  *
- * @author Álvaro
+ * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
  */
 public class DamasAleatorio extends Damas{
     private char modo = 'r';
     
+    /**
+     * crea una instacia de Tablero recibiendo como parametros un tablero y el caracter de la ficha
+     * @param t contiene un tablero 
+     * @param ficha contiene el carácter de la ficha
+     */
     public Tablero mueveMaquina(Tablero t, char ficha) {
         List<Tablero> tableros = generaPosiblesTableros(t, ficha);
         Random rnd = new Random();
@@ -27,7 +34,9 @@ public class DamasAleatorio extends Damas{
         }
     }
 
-    
+    /**
+     *@return devuelve el modo de juego
+     */
     public char getModo(){
         return modo;
     }
