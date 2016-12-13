@@ -9,7 +9,7 @@ package damas;
  *La clase Coordenada crea una coordenada a partir de dos valores x e y, establece los valores de la coordenada a partir de otra,
  *establece cada componente de la coordenada a partir de otra y devuelve el valor de x,y o de la coordenada 
  *
- * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class Coordenada {
     /**coordenada x*/
@@ -72,6 +72,7 @@ public class Coordenada {
      * devuelve string de la coordenada
      *@return devuelve un string de la coordenada de la forma (x,y)
      */
+    @Override
     public String toString(){
         return "("+ x + ", " + y + ")";
     }
@@ -80,6 +81,7 @@ public class Coordenada {
      * @param o contiene un objeto
      * devuelve un booleano, es true si el objeto o es una instancia de coordenada y coincide con la coordenada x,y
      */
+    @Override
     public boolean equals(Object o){
         return (o instanceof Coordenada) && ((Coordenada)o).x()==x && ((Coordenada)o).y()==y;
     }

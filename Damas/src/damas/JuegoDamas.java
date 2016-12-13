@@ -9,9 +9,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 /**
  *
- * @author inftel02
+ * Clase principal de la aplicación
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class JuegoDamas{
 

@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
+ * Clase que representa el estado del juego en un momento dado y ofrece métodos útiles
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class Tablero {
 

@@ -7,13 +7,12 @@ package damas;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.swing.JLabel;
-import javax.swing.JFrame;
-import java.util.*;
 
 /**
  *
- * @author georgeillacuci
+ * Clase que gestiona la internacionalización
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class Internacionalizacion extends JuegoDamas {
 

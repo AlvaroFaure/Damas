@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import damas.Damas;
 import damas.Coordenada;
 import damas.Tablero;
 import org.junit.After;
@@ -16,7 +15,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author inftel03
+ * Clase que alberga los tests
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class TableroTest {
 

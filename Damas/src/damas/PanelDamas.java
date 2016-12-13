@@ -15,7 +15,6 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -27,7 +26,9 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author inftel02
+ * Panel de la aplicación
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class PanelDamas extends JPanel implements VistaDamas {
     
@@ -236,6 +237,7 @@ public class PanelDamas extends JPanel implements VistaDamas {
         
     }
     
+    @Override
     public void pintaTablero(Tablero t){
         ImageIcon imagen;
         
@@ -269,10 +271,12 @@ public class PanelDamas extends JPanel implements VistaDamas {
  
     }
     
+    @Override
     public String getNombre(){
         return nombreJTF.getText();
     }
     
+    @Override
     public Damas getModo(){
         if(agresivoJRB.isSelected()){
             return new DamasAgresivo();
@@ -283,28 +287,34 @@ public class PanelDamas extends JPanel implements VistaDamas {
         }
     }
     
+    @Override
     public void mensaje(String str){
         mensajesJL.setText(str);
         mensajesJL.setForeground(Color.BLUE);
     }
     
+    @Override
     public void error(String err){
         mensajesJL.setText(err);
         mensajesJL.setForeground(Color.RED);
     }
     
+    @Override
     public void resetea(){
         textoJTA.setText("");
     }
     
+    @Override
     public String getCargar(){
         return cargarPartidaJTF.getText();
     }
     
+    @Override
     public String getGuardar(){
         return guardarPartidaJTF.getText();
     }
     
+    @Override
     public Coordenada boton(JButton b){
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
@@ -316,10 +326,12 @@ public class PanelDamas extends JPanel implements VistaDamas {
         return null;
     }
     
+    @Override
     public void setTextArea(String s){
         textoJTA.append(" "+s);
     }
     
+    @Override
     public void pintaPosiciones(List<Coordenada> p){
         for(int i=0; i<p.size(); i++){
             ImageIcon imagen = new ImageIcon("negroM.jpeg");
@@ -327,6 +339,7 @@ public class PanelDamas extends JPanel implements VistaDamas {
         }
     }
     
+    @Override
     public void habilitarSiguiente(boolean b){
         cambiarTurnoJB.setEnabled(b);
     }

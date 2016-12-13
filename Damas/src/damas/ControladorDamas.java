@@ -14,8 +14,9 @@ import java.util.Locale;
 import javax.swing.JButton;
 
 /**
- *
- * @author inftel02
+ * Controlador de la interfaz de la aplicación
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class ControladorDamas implements ActionListener {
 
@@ -57,7 +58,7 @@ public class ControladorDamas implements ActionListener {
                     vista.error(Internacionalizacion.getString("name_comenzar_jugar"));
                 } else {
                     //Trabajar con el nombre
-                    vista.mensaje(Internacionalizacion.getString("hello") + nombreUsuario + Internacionalizacion.getString("Start_user"));
+                    vista.mensaje(Internacionalizacion.getString("hello") + ", "+nombreUsuario + ". "+Internacionalizacion.getString("Start_user"));
                     Tablero t = new Tablero();
                     vista.pintaTablero(t);
                     modelo.setTablero(t);

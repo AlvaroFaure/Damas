@@ -7,9 +7,12 @@ import org.junit.runner.Result;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
- * @author inftel03
+ * Clase principal de los tests
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public class TestRunner {
 
@@ -17,11 +20,12 @@ public class TestRunner {
 
         Result nombreTest = JUnitCore.runClasses(TableroTest.class);
         if (nombreTest.wasSuccessful()) {
-            System.out.println("ÈXITO DE LOS TESTS: "+nombreTest.wasSuccessful());
-            System.out.print("Cantidad de tests probados: " + nombreTest.getRunCount()+"\n");
+            System.out.println("Ha habido éxito ejecutando los tests");
+            System.out.println("Se han ejecutado " + nombreTest.getRunCount()+" tests");
 
         } else {
-            System.out.print("Errores encontrados: "+nombreTest.getFailures());
+            System.out.println("No ha habido éxito ejecutando los tests");
+            System.out.println("Se han encontrado "+nombreTest.getFailures()+" errores");
         }
 
     }

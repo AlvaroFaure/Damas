@@ -14,9 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * Clase abstracta que gestiona el juego de Damas
  *
- *
- * @author Alecia Franco, Alvaro Garcia, Amir Haddouch, Rafael Hidalgo
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public abstract class Damas {
     
@@ -24,7 +24,6 @@ public abstract class Damas {
     
     public abstract Tablero mueveMaquina(Tablero t, char ficha);
     public abstract char getModo();
-    private String nombreJugador;
     
     
     /**

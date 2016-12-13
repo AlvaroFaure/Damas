@@ -11,7 +11,9 @@ import javax.swing.JButton;
 
 /**
  *
- * @author inftel02
+ * Interfaz para el panel
+ * 
+ * @author Alecia Franco, Alvaro García-Faure, Amir Haddouch, Rafael Hidalgo
  */
 public interface VistaDamas {
     
