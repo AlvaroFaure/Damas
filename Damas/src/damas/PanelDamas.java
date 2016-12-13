@@ -286,8 +286,10 @@ public class PanelDamas extends JPanel implements VistaDamas {
             return new DamasAgresivo();
         }else if(defensivoJRB.isSelected()){
             return new DamasDefensivo();
-        }else{
+        }else if(aleatorioJRB.isSelected()){
             return new DamasAleatorio();
+        }else{
+            return null;
         }
     }
     
