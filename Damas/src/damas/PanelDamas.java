@@ -188,10 +188,14 @@ public class PanelDamas extends JPanel implements VistaDamas {
         panelDerecha.add(panelOpciones);
         
         // Sexta fila
-        //spanishJB = new JButton ("ESPAÑOL");
         spanishJB = new JButton(Internacionalizacion.getString("spanish_button").toUpperCase());
-        //englishJB = new JButton ("INGLÉS");
+        spanishJB.setFont(new Font("Verdana",Font.BOLD,15));
+        spanishJB.setBackground(Color.BLUE);
+        spanishJB.setForeground(Color.WHITE);
         englishJB = new JButton(Internacionalizacion.getString("English_button").toUpperCase());
+        englishJB.setFont(new Font("Verdana",Font.BOLD,15));
+        englishJB.setBackground(Color.BLUE);
+        englishJB.setForeground(Color.WHITE);
         panelOpciones.add(spanishJB);
         panelOpciones.add(englishJB);
         
